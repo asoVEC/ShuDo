@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import model.Task;
+
 public class MainActivity extends BaseActivity{
     private String TAG = "MainActivity";
 
@@ -12,7 +14,9 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Task task = new Task();
+        String content = task.getContent(getApplicationContext());
+        Log.d(TAG,content);
 
         //初回起動かチェック
         if (checkInitState() == 1) {
