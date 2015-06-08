@@ -20,13 +20,15 @@ public class Task {
     private int importantLevel;
     private Context context;
 
-
+    public Task(Context context) {
+        this.context = context;
+    }
 
     public void addTask() {
 
     }
 
-    public String getContent (Context context) {
+    public String getContent () {
         SQLiteDatabase sdb = null;
         MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
         try {
@@ -44,7 +46,7 @@ public class Task {
             Cursor c = sdb.rawQuery(sqlstr,param);
             if(c.moveToFirst()){
                 do {
-                    content = c.getString(2);
+                    content = c.getString(1);
                 }while(c.moveToNext());
             }
         }

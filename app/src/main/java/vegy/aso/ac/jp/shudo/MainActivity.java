@@ -14,8 +14,8 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Task task = new Task();
-        String content = task.getContent(getApplicationContext());
+        Task task = new Task(getApplicationContext());
+        String content = task.getContent();
         Log.d(TAG,content);
 
         //初回起動かチェック
