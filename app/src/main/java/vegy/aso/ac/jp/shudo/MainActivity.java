@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity{
             transit(TutorialActivity.class, 0);
 
         }
+
     }
 
 
