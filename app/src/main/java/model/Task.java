@@ -19,14 +19,35 @@ public class Task {
     private Date excutedDate;
     private int importantLevel;
     private Context context;
+    private String when;
 
     public Task(Context context) {
         this.context = context;
     }
 
+    //task登録　属性：（TODO名、今日or明日のフラグ）　
     public void addTask() {
-
+            SQLiteDatabase sdb = null;
+        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
+        try {
+            sdb = helper.getWritableDatabase();
+            //もしくは、
+            //sdb = helper.getReadableDatabase();
+        } catch (SQLiteException e) {
+            Log.e(TAG, "SQLiteDatabase接続に失敗しました");
+            //異常終了
+        }
+            try{
+                String sql ="INSERT INTO task(phrase) VALUES(?,?)";
+                //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
+                sdb.execSQL(sql,new String[]{taskName});
+                sdb.execSQL(sql,new String[]{when});
+            }
+            catch(Exception e) {
+                e.getMessage();
+            }
     }
+
 
     public String getContent () {
         SQLiteDatabase sdb = null;
