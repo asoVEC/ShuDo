@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 //todo
 //タスクの登録
 //日付情報の登録（今日or明日以降)
@@ -14,6 +16,15 @@ public class AddTaskActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RadioGroup group = (RadioGroup) findViewById(R.id.radio);
+        RadioButton today = (RadioButton) findViewById(R.id.radioButton);
 
 
     }

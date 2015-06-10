@@ -37,11 +37,10 @@ public class Task {
             Log.e(TAG, "SQLiteDatabase接続に失敗しました");
             //異常終了
         }
-            try{
-                String sql ="INSERT INTO task(phrase) VALUES(?,?)";
+            try {
+                String sql = "INSERT INTO task(phrase) VALUES(?,?)";
                 //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
-                sdb.execSQL(sql,new String[]{taskName});
-                sdb.execSQL(sql,new String[]{when});
+                sdb.execSQL(sql, new String[]{"task" + taskName, "important_lv" + 0});
             }
             catch(Exception e) {
                 e.getMessage();
