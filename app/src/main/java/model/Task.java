@@ -61,6 +61,7 @@ public class Task {
             //異常終了
         }
         String content = null;
+
         String sqlstr = "select * from task;";
         String[] param = {};
         if (sdb != null) {
