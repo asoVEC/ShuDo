@@ -45,12 +45,7 @@ public class Task {
             try {
                 String sql = "INSERT INTO task(phrase) VALUES(?,?)";
                 //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
-<<<<<<< Updated upstream
-                sdb.execSQL(sql, new String[]{"task" + taskName, "important_lv" + 0});
-=======
-//                sdb.execSQL(sql,new String[]{taskName});
-//                sdb.execSQL(sql,new String[]{when});
->>>>>>> Stashed changes
+                sdb.execSQL(sql, new String[]{"task" + content, "important_lv" + 0});
             }
             catch(Exception e) {
                 e.getMessage();
