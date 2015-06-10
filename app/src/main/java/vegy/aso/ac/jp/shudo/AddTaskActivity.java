@@ -4,29 +4,31 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 //todo
 //タスクの登録
 //日付情報の登録（今日or明日以降)
 
-public class AddTaskActivity extends BaseActivity{
+public class AddTaskActivity extends BaseActivity implements View.OnClickListener{
+
+    private RadioGroup group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        RadioGroup group = (RadioGroup) findViewById(R.id.radio_group);
-        RadioButton today = (RadioButton) findViewById(R.id.radioButton);
-
-
+        group = (RadioGroup) findViewById(R.id.radio_group);
+        Button register = (Button) findViewById(R.id.bt_register);
+        register.setOnClickListener(this);
     }
 
     @Override
@@ -49,5 +51,12 @@ public class AddTaskActivity extends BaseActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        RadioButton check = (RadioButton) findViewById(group.getCheckedRadioButtonId());
+
+        Toast.makeText(this, check.getText()+"：test", Toast.LENGTH_LONG).show();
     }
 }

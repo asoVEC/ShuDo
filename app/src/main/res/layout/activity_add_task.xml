@@ -28,7 +28,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/ed_todo"
             android:hint="TODO名"/>
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signup_activity_addtask"
-            android:id="@+id/button3"
+            android:id="@+id/bt_register"
             android:layout_gravity="right" />
 
     </LinearLayout>
