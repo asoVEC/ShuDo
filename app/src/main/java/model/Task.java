@@ -6,20 +6,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Aki on 15/06/02.
  */
 public class Task {
     private final String TAG = "Task.class";
-    private String taskName;
     private String content;
-    private Date createdDate;
-    private Date excutedDate;
-    private int importantLevel;
+    private int important_level;
     private Context context;
-    private String when;
+
+    public int getImportant_level() {
+        return important_level;
+    }
+
+    public String getContent() {
+        return content;
+    }
 
     public Task(Context context) {
         this.context = context;
@@ -40,15 +45,20 @@ public class Task {
             try {
                 String sql = "INSERT INTO task(phrase) VALUES(?,?)";
                 //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
+<<<<<<< Updated upstream
                 sdb.execSQL(sql, new String[]{"task" + taskName, "important_lv" + 0});
+=======
+//                sdb.execSQL(sql,new String[]{taskName});
+//                sdb.execSQL(sql,new String[]{when});
+>>>>>>> Stashed changes
             }
             catch(Exception e) {
                 e.getMessage();
             }
     }
 
-
-    public String getContent () {
+    //DBからタスク一覧を取得するメソッドのひな形 引:SELECT文
+    public List<Task> getTask(String sqlstr) {
         SQLiteDatabase sdb = null;
         MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
         try {
@@ -59,18 +69,28 @@ public class Task {
             Log.e(TAG, "SQLiteDatabase接続に失敗しました");
             //異常終了
         }
-        String content = null;
-
-        String sqlstr = "select * from task;";
+        List<Task> taskList = new ArrayList<>();
         String[] param = {};
         if (sdb != null) {
             Cursor c = sdb.rawQuery(sqlstr,param);
             if(c.moveToFirst()){
                 do {
-                    content = c.getString(1);
+                    Task task = new Task(context);
+                    task.content = c.getString(1);
+                    task.important_level = c.getInt(2);
+                    taskList.add(task);
                 }while(c.moveToNext());
             }
         }
-        return content;
+        return taskList;
     }
+    public List<Task> getAllTask(){
+        String sqlstr = "select * from task;";
+        return getTask(sqlstr);
+    }
+    public List<Task> getTaskByImportantLv(int lv){
+        String sqlstr = "select * from task where important_lv = "+lv+";";
+        return getTask(sqlstr);
+    }
+
 }
