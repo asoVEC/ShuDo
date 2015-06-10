@@ -37,19 +37,27 @@
             android:text="@string/when_activity_addtask"
             android:id="@+id/textView3" />
 
-        <RadioButton
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/today_activity_addtask"
-            android:id="@+id/radioButton"
-            android:checked="false" />
+            android:layout_gravity="center_horizontal|left"
+            android:id = "@+id/radio_group"
+            >
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tomorrow_activity_addtask"
-            android:id="@+id/radioButton2"
-            android:checked="false" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/today_activity_addtask"
+                android:id="@+id/radio_today"
+                android:checked="false" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tomorrow_activity_addtask"
+                android:id="@+id/radio_tommorow"
+                android:checked="false" />
+        </RadioGroup>
 
         <Button
             android:layout_width="wrap_content"

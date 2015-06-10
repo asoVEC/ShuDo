@@ -23,7 +23,7 @@ public class AddTaskActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        RadioGroup group = (RadioGroup) findViewById(R.id.radio);
+        RadioGroup group = (RadioGroup) findViewById(R.id.radio_group);
         RadioButton today = (RadioButton) findViewById(R.id.radioButton);
 
 
