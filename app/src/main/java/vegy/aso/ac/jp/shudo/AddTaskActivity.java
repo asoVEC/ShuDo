@@ -6,9 +6,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import model.Task;
 //todo
 //タスクの登録
 //日付情報の登録（今日or明日以降)
@@ -56,7 +59,9 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         RadioButton check = (RadioButton) findViewById(group.getCheckedRadioButtonId());
-
-        Toast.makeText(this, check.getText()+"：test", Toast.LENGTH_LONG).show();
+        EditText content = (EditText) findViewById(R.id.ed_todo);
+        Toast.makeText(this, check.getText()+"：test"+content.getText(), Toast.LENGTH_LONG).show();
+//        Task task = new Task();
+//        task.getContent();
     }
 }
