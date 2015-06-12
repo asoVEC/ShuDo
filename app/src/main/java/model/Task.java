@@ -18,6 +18,14 @@ public class Task {
     private int important_level;
     private Context context;
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setImportant_level(int important_level) {
+        this.important_level = important_level;
+    }
+
     public int getImportant_level() {
         return important_level;
     }
