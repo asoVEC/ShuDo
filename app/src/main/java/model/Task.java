@@ -19,6 +19,7 @@ public class Task {
     private int important_level = -2;
     private Context context;
 
+
     public void setContent(String content) {
         this.content = content;
     }

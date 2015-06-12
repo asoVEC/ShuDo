@@ -11,15 +11,25 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.net.ContentHandler;
+
 import model.Task;
 //todo
 //タスクの登録
 //日付情報の登録（今日or明日以降)
 
 public class AddTaskActivity extends BaseActivity implements View.OnClickListener{
-
-    private RadioGroup group;
-
+    //画面の変数宣言
+    public class activityAttribute{
+        private RadioGroup group;
+        private Button register;
+        private taskAttribute taskAttribute;
+    }
+    //値を渡すための変数宣言
+    public class taskAttribute{
+        private String flg;
+        private String content;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +39,12 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onResume() {
         super.onResume();
-        group = (RadioGroup) findViewById(R.id.radio_group);
-        Button register = (Button) findViewById(R.id.bt_register);
-        register.setOnClickListener(this);
+        //変数取得
+        activityAttribute activityattribute = new activityAttribute();
+        //変数に値
+        activityattribute.group = (RadioGroup) findViewById(R.id.radio_group);
+        activityattribute.register = (Button) findViewById(R.id.bt_register);
+        activityattribute.register.setOnClickListener(this);
     }
 
     @Override
@@ -58,10 +71,25 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        RadioButton check = (RadioButton) findViewById(group.getCheckedRadioButtonId());
-        EditText content = (EditText) findViewById(R.id.ed_todo);
-        Toast.makeText(this, check.getText()+"：test"+content.getText(), Toast.LENGTH_LONG).show();
-//        Task task = new Task();
-//        task.getContent();
+        //変数取得
+        activityAttribute activityattribute = new activityAttribute();
+        taskAttribute taskattribute = activityattribute.taskAttribute;
+        RadioButton check = (RadioButton) findViewById(activityattribute.group.getCheckedRadioButtonId());
+        EditText content_edit = (EditText) findViewById(R.id.ed_todo);
+        taskattribute.flg = check.getText().toString();
+        taskattribute.content = content_edit.getText().toString();
+        addTask(taskattribute.content, taskattribute.flg);
+    }
+
+    public void addTask(String content,String flg) {
+        //Taskクラス取得
+        Task task = new Task(getApplicationContext());
+        task.setContent(content);
+        if (flg =="今日"){
+        task.setImportant_level(0);
+        }else{
+            task.setImportant_level(-1);
+        }
+        task.addTask();
     }
 }
