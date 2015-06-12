@@ -14,11 +14,18 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Task task = new Task(getApplicationContext());
+        String content = String.valueOf(task.getAllTask().get(0).getImportant_level());
+        task.getAllTask().get(0).updateTask(2);
+        Log.d(TAG, content);
+//        task.getAllTask().get(0).deleteTask();
+
+
+
 //        Task task = new Task(getApplicationContext());
-//        String content = task.getAllTask().get(0).getContent();
-//        String content2 = task.getTaskByImportantLv(0).get(0).getContent();
-//        Log.d(TAG,content);
-//        Log.d(TAG, content2);
+//        task.setContent("きみやと焼肉");
+//        task.setImportant_level(0);
+//        task.addTask();
 
         //初回起動かチェック
         if (checkInitState() == 1) {

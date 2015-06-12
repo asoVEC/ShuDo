@@ -14,12 +14,17 @@ import java.util.List;
  */
 public class Task {
     private final String TAG = "Task.class";
-    private String content;
-    private int important_level;
+    private int taskId = -1;
+    private String content = null;
+    private int important_level = -2;
     private Context context;
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getTaskId() {
+        return taskId;
     }
 
     public void setImportant_level(int important_level) {
@@ -40,24 +45,29 @@ public class Task {
 
     //task登録　属性：（TODO名、今日or明日のフラグ）　
     public void addTask() {
+        if (content == null || important_level == -2) {
+            Log.e(TAG, "addTask():必要な属性がありません");
+        } else {
             SQLiteDatabase sdb = null;
-        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
-        try {
-            sdb = helper.getWritableDatabase();
-            //もしくは、
-            //sdb = helper.getReadableDatabase();
-        } catch (SQLiteException e) {
-            Log.e(TAG, "SQLiteDatabase接続に失敗しました");
-            //異常終了
-        }
+            MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
             try {
-                String sql = "INSERT INTO task(phrase) VALUES(?,?)";
-                //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
-                sdb.execSQL(sql, new String[]{"task" + content, "important_lv" + 0});
+                sdb = helper.getWritableDatabase();
+                //もしくは、
+                //sdb = helper.getReadableDatabase();
+            } catch (SQLiteException e) {
+                Log.e(TAG, "SQLiteDatabase接続に失敗しました");
+                //異常終了
             }
-            catch(Exception e) {
+            try {
+                String sql = "INSERT INTO task(task,important_lv) VALUES(?,?)";
+                Log.d(TAG, "(" + content + "," + important_level + ")をtaskテーブルに挿入します");
+                //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
+//                sdb.execSQL(sql, new String[]{"task" + content, "important_lv" + 0});
+                sdb.execSQL(sql, new Object[]{content, important_level});
+            } catch (Exception e) {
                 e.getMessage();
             }
+        }
     }
 
     //DBからタスク一覧を取得するメソッドのひな形 引:SELECT文
@@ -79,6 +89,7 @@ public class Task {
             if(c.moveToFirst()){
                 do {
                     Task task = new Task(context);
+                    task.taskId = c.getInt(0);
                     task.content = c.getString(1);
                     task.important_level = c.getInt(2);
                     taskList.add(task);
@@ -96,6 +107,54 @@ public class Task {
         return getTask(sqlstr);
     }
 
+    public void deleteTask() {
+        Log.d(TAG, "deleteTask()がよばれました。taskId :" +taskId+"のタスクを削除します");
+        if (taskId == -1) {
+
+        } else {
+            SQLiteDatabase sdb = null;
+            MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
+            try {
+                sdb = helper.getWritableDatabase();
+                //もしくは、
+                //sdb = helper.getReadableDatabase();
+            } catch (SQLiteException e) {
+                Log.e(TAG, "SQLiteDatabase接続に失敗しました");
+                //異常終了
+            }
+            try {
+                String sql = "delete from task where _id == " + taskId;
+                sdb.execSQL(sql);
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+    }
+
+    public void updateTask(int important_level){
+        Log.d(TAG, "updateTask()がよばれました。taskId :" +taskId+"のタスクを更新します");
+        if (taskId == -1) {
+
+        } else {
+            SQLiteDatabase sdb = null;
+            MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
+            try {
+                sdb = helper.getWritableDatabase();
+                //もしくは、
+                //sdb = helper.getReadableDatabase();
+            } catch (SQLiteException e) {
+                Log.e(TAG, "SQLiteDatabase接続に失敗しました");
+                //異常終了
+            }
+            try {
+                String sql = "update table task set important_lv = "+important_level+" where _id == " + taskId;
+                sdb.execSQL(sql);
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+
+    }
 
 
 }
