@@ -24,6 +24,8 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
         private RadioGroup group;
         private Button register;
         private taskAttribute taskAttribute;
+        private RadioButton check;
+        private EditText edit;
     }
     //値を渡すための変数宣言
     public class taskAttribute{
@@ -74,10 +76,10 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
         //変数取得
         activityAttribute activityattribute = new activityAttribute();
         taskAttribute taskattribute = activityattribute.taskAttribute;
-        RadioButton check = (RadioButton) findViewById(activityattribute.group.getCheckedRadioButtonId());
-        EditText content_edit = (EditText) findViewById(R.id.ed_todo);
-        taskattribute.flg = check.getText().toString();
-        taskattribute.content = content_edit.getText().toString();
+        activityattribute.check = (RadioButton) findViewById(activityattribute.group.getCheckedRadioButtonId());
+        activityattribute.edit = (EditText) findViewById(R.id.ed_todo);
+        taskattribute.flg = activityattribute.check.getText().toString();
+        taskattribute.content = activityattribute.edit.getText().toString();
         addTask(taskattribute.content, taskattribute.flg);
     }
 
