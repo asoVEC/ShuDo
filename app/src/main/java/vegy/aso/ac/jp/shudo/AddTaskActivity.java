@@ -1,17 +1,11 @@
 package vegy.aso.ac.jp.shudo;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import java.net.ContentHandler;
 
 import model.Task;
 //todo
@@ -57,7 +51,7 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
         activityAttribute activityattribute = new activityAttribute();
         taskAttribute taskattribute = activityattribute.taskAttribute;
         activityattribute.check = (RadioButton) findViewById(activityattribute.group.getCheckedRadioButtonId());
-        activityattribute.edit = (EditText) findViewById(R.id.ed_todo);
+        activityattribute.edit = (EditText) findViewById(R.id.et_todo);
         taskattribute.flg = activityattribute.check.getText().toString();
         taskattribute.content = activityattribute.edit.getText().toString();
         addTask(taskattribute.content, taskattribute.flg);
@@ -72,6 +66,10 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
         }else{
             task.setImportant_level(-1);
         }
-        task.addTask();
+        try {
+            task.addTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
