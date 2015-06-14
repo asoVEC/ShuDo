@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Aki on 15/06/02.
  */
 public class Task {
-    private final String TAG = "Task.class";
+    private static final String TAG = "Task.class";
     private int taskId = -1;
     private String content = null;
     private int important_level = -2;
@@ -46,7 +46,7 @@ public class Task {
 
     //task登録　属性：（TODO名、今日or明日のフラグ）　
     public void addTask() throws Exception {
-        if (content == null || important_level == -2) {
+        if (content == null || content.equals("") || important_level == -2) {
             Log.e(TAG, "addTask():必要な属性がありません");
             throw new Exception();
         } else {
@@ -73,7 +73,7 @@ public class Task {
     }
 
     //DBからタスク一覧を取得するメソッドのひな形 引:SELECT文
-    public List<Task> getTask(String sqlstr) {
+    public static List<Task> getTask(Context context,String sqlstr) {
         SQLiteDatabase sdb = null;
         MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
         try {
@@ -100,13 +100,13 @@ public class Task {
         }
         return taskList;
     }
-    public List<Task> getAllTask(){
+    public static List<Task> getAllTask(Context context){
         String sqlstr = "select * from task;";
-        return getTask(sqlstr);
+        return getTask(context,sqlstr);
     }
-    public List<Task> getTaskByImportantLv(int lv){
+    public static  List<Task> getTaskByImportantLv(Context context, int lv){
         String sqlstr = "select * from task where important_lv = "+lv+";";
-        return getTask(sqlstr);
+        return getTask(context,sqlstr);
     }
 
     public void deleteTask() {
