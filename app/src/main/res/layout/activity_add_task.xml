@@ -28,7 +28,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ed_todo"
+            android:id="@+id/et_todo"
             android:hint="TODO名"/>
 
         <TextView

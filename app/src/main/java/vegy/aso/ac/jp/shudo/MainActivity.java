@@ -16,12 +16,14 @@ public class MainActivity extends BaseActivity{
         setContentView(R.layout.activity_main);
         Task task = new Task(getApplicationContext());
         String content = String.valueOf(task.getAllTask().get(0).getImportant_level());
-        task.getAllTask().get(0).updateTask(2);
+        //タスク更新テスト
+//        task.getAllTask().get(0).updateTask(2);
         Log.d(TAG, content);
+        //タスク削除テスト
 //        task.getAllTask().get(0).deleteTask();
 
 
-
+        //タスク追加テスト
 //        Task task = new Task(getApplicationContext());
 //        task.setContent("きみやと焼肉");
 //        task.setImportant_level(0);

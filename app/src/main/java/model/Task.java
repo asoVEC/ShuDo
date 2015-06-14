@@ -45,9 +45,10 @@ public class Task {
     }
 
     //task登録　属性：（TODO名、今日or明日のフラグ）　
-    public void addTask() {
+    public void addTask() throws Exception {
         if (content == null || important_level == -2) {
             Log.e(TAG, "addTask():必要な属性がありません");
+            throw new Exception();
         } else {
             SQLiteDatabase sdb = null;
             MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
@@ -148,7 +149,7 @@ public class Task {
                 //異常終了
             }
             try {
-                String sql = "update table task set important_lv = "+important_level+" where _id == " + taskId;
+                String sql = "update task set important_lv = "+ important_level +" where _id == " + taskId;
                 sdb.execSQL(sql);
             } catch (Exception e) {
                 e.getMessage();
