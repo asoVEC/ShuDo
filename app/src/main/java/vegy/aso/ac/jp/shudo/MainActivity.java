@@ -16,12 +16,12 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<Task> allTaskList = Task.getAllTask(getApplicationContext());
+//        List<Task> allTaskList = Task.getAllTask(getApplicationContext());
 
-        for (int i = 0;i< allTaskList.size();i++) {
-            String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
-            Log.d(TAG, content);
-        }
+//        for (int i = 0;i< allTaskList.size();i++) {
+//            String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
+//            Log.d(TAG, content);
+//        }
         //タスク更新テスト
 //        task.getAllTask().get(0).updateTask(2);
 
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity{
             transit(TaskListActivity.class, 0);
         }else if (checkInitState() == 0) {
 //            transit(TutorialActivity.class, 0);
-            transit(AddTaskActivity2.class, 0);
+            transit(AddTaskActivity.class, 0);
         }
 
     }
