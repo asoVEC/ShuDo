@@ -24,12 +24,7 @@ public class AddTaskActivity2 extends BaseActivity {
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
                     addTask();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplication(), "タスクの追加に失敗しました", Toast.LENGTH_LONG);
-                }
             }
         });
     }
@@ -38,24 +33,29 @@ public class AddTaskActivity2 extends BaseActivity {
         super.onPostResume();
     }
 
-    public void addTask() throws Exception{
+    public void addTask(){
         //追加するタスクのインスタンス作成
         Task task = new Task(getApplicationContext());
 
-        //登録するタスクのコンテント取得
+        //登録するタスクのコンテント取得、タスクインスタンスにセット
         EditText todoEt = (EditText) findViewById(R.id.et_todo);
         task.setContent(todoEt.getText().toString());
 
-        //追加するタスクのインポータントレベル取得
+        //追加するタスクのインポータントレベル取得、タスクインスタンスにセット
         RadioGroup importantLvRg = (RadioGroup) findViewById(R.id.radio_group);
         switch (importantLvRg.getCheckedRadioButtonId()) {
             case R.id.radio_today:
                 task.setImportant_level(0);
                 break;
             case R.id.radio_tommorow:
-                task.setImportant_level(1);
+                task.setImportant_level(-1);
                 break;
         }
-        task.addTask();
+        try {
+            task.addTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplication(), "タスクの追加に失敗しました", Toast.LENGTH_LONG);
+        }
     }
 }

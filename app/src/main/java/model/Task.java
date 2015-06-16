@@ -52,23 +52,15 @@ public class Task {
         } else {
             SQLiteDatabase sdb = null;
             MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context);
-            try {
                 sdb = helper.getWritableDatabase();
                 //もしくは、
                 //sdb = helper.getReadableDatabase();
-            } catch (SQLiteException e) {
-                Log.e(TAG, "SQLiteDatabase接続に失敗しました");
-                //異常終了
-            }
-            try {
+
                 String sql = "INSERT INTO task(task,important_lv) VALUES(?,?)";
                 Log.d(TAG, "(" + content + "," + important_level + ")をtaskテーブルに挿入します");
                 //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
 //                sdb.execSQL(sql, new String[]{"task" + content, "important_lv" + 0});
                 sdb.execSQL(sql, new Object[]{content, important_level});
-            } catch (Exception e) {
-                e.getMessage();
-            }
         }
     }
 
