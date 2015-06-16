@@ -3,6 +3,7 @@ package vegy.aso.ac.jp.shudo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -20,10 +21,13 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
+        TextView title = (TextView) findViewById(R.id.title_tasklist);
         if (flg = true) {
-            List<Task> todayTask = Task.getTask(getApplicationContext(),"select * from task where important_lv = ");
+            title.setText("今日の予定一覧");
+            List<Task> todayTask = Task.getTask(getApplicationContext(),"select * from task where important_lv <> -1 ");
         }
         if (flg = false){
+            title.setText("今日の予定一覧");
             List<Task> tommorowTask = Task.getTask(getApplicationContext(),"select * from task where important_lv = -1");
         }
     }
