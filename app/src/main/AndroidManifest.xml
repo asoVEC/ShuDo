@@ -24,6 +24,14 @@
             android:name=".TutorialActivity"
             android:label="@string/title_activity_tutorial" >
         </activity>
+        <activity
+            android:name=".AddTaskActivity"
+            android:label="@string/title_activity_management_task" >
+        </activity>
+        <activity
+            android:name=".AddTaskActivity2"
+            android:label="@string/title_activity_management_task" >
+        </activity>
     </application>
 
 </manifest>

@@ -5,4 +5,11 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_task_list">TaskListActivity</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="title_activity_management_task">ManagementTask</string>
+    <string name="top_activity_addtask">TODOを新たに追加</string>
+    <string name="todo_activity_addtask">TODO名</string>
+    <string name="when_activity_addtask">いつする？</string>
+    <string name="today_activity_addtask">今日</string>
+    <string name="tomorrow_activity_addtask">明日以降</string>
+    <string name="signup_activity_addtask">登録</string>
 </resources>

@@ -12,8 +12,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper  {
     private static final String TAG = MySQLiteOpenHelper.class.getSimpleName();
     private final MySQLiteOpenHelper self = this;
     private final String CREATE_STATEMENT = "create table task (_id integer primary key autoincrement," +
-            "content text not null )";
-    private final String INSERT_STATMENT = "insert into task (content) values('ますやま')";
+            "task text not null,important_lv integer not null)";
+    private final String INSERT_STATMENT = "insert into task (task,important_lv) values('きみや',0)";
 
     public MySQLiteOpenHelper(Context c){
         super(c,"vec.db",null,1);

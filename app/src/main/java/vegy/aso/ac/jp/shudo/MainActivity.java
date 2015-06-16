@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.List;
+
 import model.Task;
 
 public class MainActivity extends BaseActivity{
@@ -14,17 +16,35 @@ public class MainActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Task task = new Task(getApplicationContext());
-        String content = task.getContent();
-        Log.d(TAG,content);
+        List<Task> allTaskList = Task.getAllTask(getApplicationContext());
+
+        for (int i = 0;i< allTaskList.size();i++) {
+            String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
+            Log.d(TAG, content);
+        }
+        //タスク更新テスト
+//        task.getAllTask().get(0).updateTask(2);
+
+        //タスク削除テスト
+//        task.getAllTask().get(0).deleteTask();
+
+
+        //タスク追加テスト
+//        Task task = new Task(getApplicationContext());
+//        task.setContent("きみやと焼肉");
+//        task.setImportant_level(0);
+//        task.addTask();
+
+
 
         //初回起動かチェック
         if (checkInitState() == 1) {
             transit(TaskListActivity.class, 0);
         }else if (checkInitState() == 0) {
-            transit(TutorialActivity.class, 0);
-
+//            transit(TutorialActivity.class, 0);
+            transit(AddTaskActivity.class, 0);
         }
+
     }
 
 
