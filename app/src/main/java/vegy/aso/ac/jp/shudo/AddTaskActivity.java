@@ -54,6 +54,7 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
                 addTaskAttribute(activityattribute.content, -1);
                 break;
         }
+        finish();
     }
 
     public void addTaskAttribute(String content, int flg) {

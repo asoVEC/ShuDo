@@ -42,7 +42,8 @@ public class MainActivity extends BaseActivity{
             transit(TaskListActivity.class, 0);
         }else if (checkInitState() == 0) {
 //            transit(TutorialActivity.class, 0);
-            transit(AddTaskActivity.class, 0);
+//            transit(AddTaskActivity.class, 0);
+            transit(TaskListActivity.class, 0);
         }
 
     }
