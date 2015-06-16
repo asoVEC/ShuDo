@@ -12,7 +12,7 @@ import model.Task;
 
 public class AddTaskActivity extends BaseActivity implements View.OnClickListener {
     //画面の変数宣言
-    public class addAttribute {
+    class addAttribute {
         private RadioGroup group;
         private Button register;
         private EditText edit;

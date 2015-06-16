@@ -100,10 +100,22 @@ public class Task {
         }
         return taskList;
     }
-    public static List<Task> getAllTask(Context context){
+    public static List<Task> getAllTask(Context context) {
         String sqlstr = "select * from task;";
-        return getTask(context,sqlstr);
+        return getTask(context, sqlstr);
     }
+
+    public static List<Task> getTodayTask(Context context) {
+        String sqlstr = "select * from task where important_lv <> -1";
+        return getTask(context, sqlstr);
+    }
+
+    public static List<Task> getTommorowTask(Context context) {
+        String sqlstr = "select * from task where important_lv = -1";
+        return getTask(context, sqlstr);
+    }
+
+
     public static  List<Task> getTaskByImportantLv(Context context, int lv){
         String sqlstr = "select * from task where important_lv = "+lv+";";
         return getTask(context,sqlstr);
