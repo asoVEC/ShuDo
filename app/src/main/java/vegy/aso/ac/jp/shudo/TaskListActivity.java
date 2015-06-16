@@ -15,9 +15,11 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
     //flg宣言　デフォルトは今日
     private boolean flg = true;
     //メソッド分けたかったから諦めた
-        private TextView title = (TextView) findViewById(R.id.title_tasklist);
-        private Button todayButton = (Button) findViewById(R.id.todday_button_tasklist);
-        private Button tommorowButton = (Button) findViewById(R.id.tommorow_button_tasklist);
+    private TextView title = (TextView) findViewById(R.id.title_tasklist);
+    private Button todayButton = (Button) findViewById(R.id.todday_button_tasklist);
+    private Button tommorowButton = (Button) findViewById(R.id.tommorow_button_tasklist);
+    private List<Task> taskList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +34,21 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         //ボタンクリック処理
         todayButton.setOnClickListener(this);
         tommorowButton.setOnClickListener(this);
-
+        //タスクの取得
         if (flg = true) {
             title.setText("今日の予定一覧");
-            List<Task> todayTask = Task.getTask(getApplicationContext(),"select * from task where important_lv <> -1 ");
+            taskList = Task.getTodayTask(getApplicationContext());
         }
         if (flg = false){
             title.setText("明日以降の予定一覧");
-            List<Task> tommorowTask = Task.getTask(getApplicationContext(),"select * from task where important_lv = -1");
-
+            taskList = Task.getTommorowTask(getApplicationContext());
         }
-
         //表示する
-        taskDisplay();
-
-
+        taskDisplay(taskList);
     }
 
-    public void taskDisplay(){
+    public void taskDisplay(List<Task> task){
+
 
     }
 
