@@ -12,7 +12,7 @@ import model.Task;
 
 public class AddTaskActivity extends BaseActivity implements View.OnClickListener {
     //画面の変数宣言
-    public class activityAttribute {
+    public class addAttribute {
         private RadioGroup group;
         private Button register;
         private EditText edit;
@@ -29,7 +29,7 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         //変数インスタンス化
-        activityAttribute activityattribute = new activityAttribute();
+        addAttribute activityattribute = new addAttribute();
         //変数に値
         activityattribute.register = (Button) findViewById(R.id.bt_register);
         activityattribute.register.setOnClickListener(this);
@@ -39,7 +39,7 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         //変数インスタンス化
-        activityAttribute activityattribute = new activityAttribute();
+        addAttribute activityattribute = new addAttribute();
         //インスタンス変数に値を
         activityattribute.edit = (EditText) findViewById(R.id.et_todo);
         activityattribute.content = activityattribute.edit.getText().toString();
