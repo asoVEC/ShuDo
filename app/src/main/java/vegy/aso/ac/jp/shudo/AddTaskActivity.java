@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import model.Task;
 
@@ -64,6 +65,7 @@ public class AddTaskActivity extends BaseActivity implements View.OnClickListene
             task.addTask();
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(this,"登録エラー",Toast.LENGTH_LONG).show();
         }
     }
 }
