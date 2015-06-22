@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import model.Task;
@@ -33,7 +35,9 @@ public class MainActivity extends BaseActivity{
 //        task.setContent("きみやと焼肉");
 //        task.setImportant_level(0);
 //        task.addTask();
-
+        Date date = new Date();
+        SimpleDateFormat time = new SimpleDateFormat("HH");
+        Log.d(TAG, time.toString());
 
 
         //初回起動かチェック
@@ -44,6 +48,9 @@ public class MainActivity extends BaseActivity{
 //            transit(TaskListActivity.class, 0);
 
         }
+
+        //設定時間だった場合はタスク更新
+        checkPreferencesTime();
 
     }
 
@@ -83,6 +90,30 @@ public class MainActivity extends BaseActivity{
 
     }
 
+    //設定時間チェック
+    private void checkPreferencesTime() {
+        SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
+        String time = preferencesTime.getString("PreferencesTime", "12");
+        Log.d(TAG, "設定時刻は" +time);
+        //現在時刻
+        String nowTime = getNowDate().toString();
+
+        Log.d(TAG,"現在事項は"+nowTime);
+
+//
+        if (time.equals(nowTime)) {
+
+        }
+
+    }
+        //現在時刻取得
+    public static String getNowDate(){
+        final SimpleDateFormat df = new SimpleDateFormat("HH");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
+
+    //
 
 
 
