@@ -161,6 +161,9 @@ public class Task {
         }
 
     }
+    public void  increaseImportantLv(){
+        updateTask(important_level + 1);
+    }
 
 
 }
