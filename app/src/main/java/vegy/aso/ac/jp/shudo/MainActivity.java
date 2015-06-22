@@ -11,7 +11,7 @@ import java.util.List;
 
 import model.Task;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
     private String TAG = "MainActivity";
 
     @Override
@@ -19,8 +19,8 @@ public class MainActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         List<Task> allTaskList = Task.getAllTask(getApplicationContext());
-        for (int i = 0;i< allTaskList.size();i++) {
-            String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
+        for (int i = 0; i < allTaskList.size(); i++) {
+            String content = String.valueOf(allTaskList.get(i).getTaskId() + allTaskList.get(i).getContent() + allTaskList.get(i).getImportant_level());
             Log.d(TAG, content);
         }
         //タスク更新テスト
@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity{
         //初回起動かチェック
         if (checkInitState() == 1) {
             transit(TaskListActivity.class, 0);
-        }else if (checkInitState() == 0) {
+        } else if (checkInitState() == 0) {
             transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
 
@@ -55,12 +55,11 @@ public class MainActivity extends BaseActivity{
     }
 
 
-
     //初回起動時かチェックする 戻:int 0=初回、1=初回ではない
-    private int checkInitState(){
+    private int checkInitState() {
         int initState = 0;
         SharedPreferences data = getSharedPreferences("initState", Context.MODE_PRIVATE);
-        initState = data.getInt("initState",0 );
+        initState = data.getInt("initState", 0);
         return initState;
     }
 
@@ -76,6 +75,7 @@ public class MainActivity extends BaseActivity{
             Log.d(TAG, "初回起動情報の書き込みに失敗しました");
         }
     }
+
     //【開発用】初回起動情報の初期化
     private void cleanInitState() {
         try {
@@ -94,26 +94,33 @@ public class MainActivity extends BaseActivity{
     private void checkPreferencesTime() {
         SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
         String time = preferencesTime.getString("PreferencesTime", "12");
-        Log.d(TAG, "設定時刻は" +time);
+        Log.d(TAG, "設定時刻は" + time);
         //現在時刻
         String nowTime = getNowDate().toString();
 
-        Log.d(TAG,"現在事項は"+nowTime);
+        Log.d(TAG, "現在事項は" + nowTime);
 
 //
         if (time.equals(nowTime)) {
-
+            updateImportantLv(Task.getAllTask(getApplicationContext()));
         }
-
     }
-        //現在時刻取得
-    public static String getNowDate(){
+
+    //現在時刻取得
+    public static String getNowDate() {
         final SimpleDateFormat df = new SimpleDateFormat("HH");
         final Date date = new Date(System.currentTimeMillis());
         return df.format(date);
     }
 
-    //
+    //データ更新
+    public void updateImportantLv(List<Task> allTaskList){
+        Task task = new Task(getApplicationContext());
+        Log.d(TAG,allTaskList.size()+":タスク数");
+        for (int i = 0; i<allTaskList.size();i++) {
+            task.updateTask(allTaskList.get(i).getImportant_level()+1);
+        }
+}
 
 
 
