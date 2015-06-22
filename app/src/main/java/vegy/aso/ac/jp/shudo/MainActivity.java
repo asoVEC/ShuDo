@@ -19,8 +19,7 @@ public class MainActivity extends BaseActivity{
         List<Task> allTaskList = Task.getAllTask(getApplicationContext());
         for (int i = 0;i< allTaskList.size();i++) {
             String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
-//            allTaskList.get(i).increaseImportantLv();
-            Log.e(TAG, content);
+            Log.d(TAG, content);
         }
         //タスク更新テスト
 //        task.getAllTask().get(0).updateTask(2);
@@ -41,8 +40,8 @@ public class MainActivity extends BaseActivity{
         if (checkInitState() == 1) {
             transit(TaskListActivity.class, 0);
         }else if (checkInitState() == 0) {
-//            transit(AddTaskActivity.class, 0);
-            transit(TaskListActivity.class, 0);
+            transit(AddTaskActivity.class, 0);
+//            transit(TaskListActivity.class, 0);
 
         }
 
