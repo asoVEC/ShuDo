@@ -38,17 +38,17 @@ public class MainActivity extends BaseActivity{
             Log.d(TAG, content);
         }
         //タスク更新テスト
-//        task.getAllTask().get(0).updateTask(2);
+//        task_layout.getAllTask().get(0).updateTask(2);
 
         //タスク削除テスト
-//        task.getAllTask().get(0).deleteTask();
+//        task_layout.getAllTask().get(0).deleteTask();
 
 
         //タスク追加テスト
-//        Task task = new Task(getApplicationContext());
-//        task.setContent("きみやと焼肉");
-//        task.setImportant_level(0);
-//        task.addTask();
+//        Task task_layout = new Task(getApplicationContext());
+//        task_layout.setContent("きみやと焼肉");
+//        task_layout.setImportant_level(0);
+//        task_layout.addTask();
 
 
 
