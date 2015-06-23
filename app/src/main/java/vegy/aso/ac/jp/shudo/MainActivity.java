@@ -14,12 +14,6 @@ import model.Task;
 public class MainActivity extends BaseActivity{
     private String TAG = "MainActivity";
 
-    //現在時刻取得
-    public static String getNowDate() {
-        final SimpleDateFormat df = new SimpleDateFormat("HH");
-        final Date date = new Date(System.currentTimeMillis());
-        return df.format(date);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +99,12 @@ public class MainActivity extends BaseActivity{
         if (time.equals(nowTime)) {
             updateImportantLv();
         }
+    }
+    //現在時刻取得
+    public static String getNowDate() {
+        final SimpleDateFormat df = new SimpleDateFormat("HH");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
     }
 
     //データ更新
