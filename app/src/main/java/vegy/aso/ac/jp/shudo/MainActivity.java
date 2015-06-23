@@ -28,7 +28,6 @@ public class MainActivity extends BaseActivity{
         List<Task> allTaskList = Task.getAllTask(getApplicationContext());
         for (int i = 0;i< allTaskList.size();i++) {
             String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
-            allTaskList.get(i).increaseImportantLv();
             Log.d(TAG, content);
         }
         //タスク更新テスト
@@ -104,16 +103,16 @@ public class MainActivity extends BaseActivity{
 
 //
         if (time.equals(nowTime)) {
-            updateImportantLv(Task.getAllTask(getApplicationContext()));
+            updateImportantLv();
         }
     }
 
     //データ更新
-    public void updateImportantLv(List<Task> allTaskList) {
-        Task task = new Task(getApplicationContext());
-        Log.d(TAG, allTaskList.size() + ":タスク数");
-        for (int i = 0; i < allTaskList.size(); i++) {
-            task.updateTask(allTaskList.get(i).getImportant_level() + 1);
+    public void updateImportantLv() {
+        List<Task> taskList = Task.getAllTask(getApplicationContext());
+        Log.d(TAG, taskList.size() + ":タスク数");
+        for (int i = 0; i < taskList.size(); i++) {
+            taskList.get(i).increaseImportantLv();
         }
     }
 
