@@ -1,6 +1,7 @@
 package vegy.aso.ac.jp.shudo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import model.PushService;
 import model.Task;
 
 public class MainActivity extends BaseActivity{
@@ -49,6 +51,12 @@ public class MainActivity extends BaseActivity{
 //        task.setContent("きみやと焼肉");
 //        task.setImportant_level(0);
 //        task.addTask();
+
+        //サービスの起動
+        startService(new Intent(this, PushService.class));
+        //とりあえずコメントで残しとく　使わない予定
+//        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
+//        registerReceiver(receiver, filter);
 
 
 
