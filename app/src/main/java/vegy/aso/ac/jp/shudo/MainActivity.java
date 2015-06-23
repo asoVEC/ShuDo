@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity{
         //現在時刻
         String nowTime = getNowDate().toString();
 
-        Log.d(TAG, "現在事項は" + nowTime);
+        Log.d(TAG, "現在時刻は" + nowTime);
 
 //
         if (time.equals(nowTime)) {
