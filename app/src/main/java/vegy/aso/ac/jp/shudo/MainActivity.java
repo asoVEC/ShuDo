@@ -5,12 +5,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import model.Task;
 
 public class MainActivity extends BaseActivity{
     private String TAG = "MainActivity";
+
+    //現在時刻取得
+    public static String getNowDate() {
+        final SimpleDateFormat df = new SimpleDateFormat("HH");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +57,6 @@ public class MainActivity extends BaseActivity{
 
     }
 
-
-
     //初回起動時かチェックする 戻:int 0=初回、1=初回ではない
     private int checkInitState(){
         int initState = 0;
@@ -70,6 +77,7 @@ public class MainActivity extends BaseActivity{
             Log.d(TAG, "初回起動情報の書き込みに失敗しました");
         }
     }
+
     //【開発用】初回起動情報の初期化
     private void cleanInitState() {
         try {
@@ -84,6 +92,30 @@ public class MainActivity extends BaseActivity{
 
     }
 
+    //設定時間チェック
+    private void checkPreferencesTime() {
+        SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
+        String time = preferencesTime.getString("PreferencesTime", "12");
+        Log.d(TAG, "設定時刻は" + time);
+        //現在時刻
+        String nowTime = getNowDate().toString();
+
+        Log.d(TAG, "現在事項は" + nowTime);
+
+//
+        if (time.equals(nowTime)) {
+            updateImportantLv(Task.getAllTask(getApplicationContext()));
+        }
+    }
+
+    //データ更新
+    public void updateImportantLv(List<Task> allTaskList) {
+        Task task = new Task(getApplicationContext());
+        Log.d(TAG, allTaskList.size() + ":タスク数");
+        for (int i = 0; i < allTaskList.size(); i++) {
+            task.updateTask(allTaskList.get(i).getImportant_level() + 1);
+        }
+    }
 
 
 
