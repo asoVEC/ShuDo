@@ -2,6 +2,7 @@ package vegy.aso.ac.jp.shudo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -15,8 +16,14 @@ public class MainActivity extends BaseActivity{
     private String TAG = "MainActivity";
 
     //現在時刻取得
-    public static String getNowDate() {
+    public static String getNowTime() {
         final SimpleDateFormat df = new SimpleDateFormat("HH");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
+
+    public static String getToday() {
+        final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
         final Date date = new Date(System.currentTimeMillis());
         return df.format(date);
     }
@@ -53,6 +60,7 @@ public class MainActivity extends BaseActivity{
 //            transit(TaskListActivity.class, 0);
 
         }
+        checkPreferencesTime();
 
     }
 
@@ -92,18 +100,30 @@ public class MainActivity extends BaseActivity{
     }
 
     //設定時間チェック
+    //dateで比較　１日１回のみ
     private void checkPreferencesTime() {
         SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
-        String time = preferencesTime.getString("PreferencesTime", "12");
+        int time = preferencesTime.getInt("PreferencesTime", 10);
+        SharedPreferences preferencesFlag = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
+        String flg = preferencesFlag.getString("PreferencesFlag", "0");
+        int nowTime = Integer.parseInt(getNowTime());
+        String today = getToday().toString();
+
         Log.d(TAG, "設定時刻は" + time);
+        Log.d(TAG, "flgは" + flg);
         //現在時刻
-        String nowTime = getNowDate().toString();
-
         Log.d(TAG, "現在時刻は" + nowTime);
+        Log.d(TAG, "今日の日付は" + today);
 
-//
-        if (time.equals(nowTime)) {
-            updateImportantLv();
+        if (flg.equals(today)) {
+        }else {
+            if (time <= nowTime) {
+                updateImportantLv();
+                //flgに今日の日付を書き込む
+                SharedPreferences.Editor editor = preferencesFlag.edit();
+                editor.putString("PreferencesFlag", today);
+                Log.d(TAG, preferencesFlag.getString("PreferencesFlag", "2"));
+            }
         }
     }
 
@@ -115,8 +135,6 @@ public class MainActivity extends BaseActivity{
             taskList.get(i).increaseImportantLv();
         }
     }
-
-
 
 
 }
