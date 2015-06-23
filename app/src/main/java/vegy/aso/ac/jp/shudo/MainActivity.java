@@ -102,27 +102,33 @@ public class MainActivity extends BaseActivity{
     //設定時間チェック
     //dateで比較　１日１回のみ
     private void checkPreferencesTime() {
+        //設定時間の読み込み
         SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
         int time = preferencesTime.getInt("PreferencesTime", 10);
+        //フラグの読み込み（今日更新したかどうか確認するため）
         SharedPreferences preferencesFlag = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
         String flg = preferencesFlag.getString("PreferencesFlag", "0");
+        //起動時間の取得
         int nowTime = Integer.parseInt(getNowTime());
+        //起動した日付の取得
         String today = getToday().toString();
-
+        //log
         Log.d(TAG, "設定時刻は" + time);
         Log.d(TAG, "flgは" + flg);
-        //現在時刻
         Log.d(TAG, "現在時刻は" + nowTime);
         Log.d(TAG, "今日の日付は" + today);
-
+        //今日更新したかどうか　していない場合はelseで更新する
         if (flg.equals(today)) {
+            Log.d(TAG, "間違い");
         }else {
             if (time <= nowTime) {
+                //更新する
                 updateImportantLv();
                 //flgに今日の日付を書き込む
                 SharedPreferences.Editor editor = preferencesFlag.edit();
                 editor.putString("PreferencesFlag", today);
-                Log.d(TAG, preferencesFlag.getString("PreferencesFlag", "2"));
+                editor.apply();
+                Log.d(TAG, preferencesFlag.getString("PreferencesFlag", "0"));
             }
         }
     }
