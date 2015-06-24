@@ -1,5 +1,7 @@
 package vegy.aso.ac.jp.shudo;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,14 +10,18 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import model.PushService;
+import model.Receiver;
 import model.Task;
 
 public class MainActivity extends BaseActivity{
     private String TAG = "MainActivity";
+    int notificationId;
+    private PendingIntent alarmIntent;
 
     //現在時刻取得
     public static String getNowTime() {
@@ -58,6 +64,28 @@ public class MainActivity extends BaseActivity{
 //        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
 //        registerReceiver(receiver, filter);
 
+
+        Intent bootIntent = new Intent(MainActivity.this, Receiver.class);
+        bootIntent.putExtra("notificationId", notificationId);
+        alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+                int hour = 15;
+                int minute = 11;
+
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(Calendar.HOUR_OF_DAY, hour);
+                startTime.set(Calendar.MINUTE, minute);
+                startTime.set(Calendar.SECOND, 0);
+                long alarmStartTime = startTime.getTimeInMillis();
+
+                alarm.set(
+                        AlarmManager.RTC_WAKEUP,
+                        alarmStartTime,
+                        alarmIntent
+                );
+                notificationId++;
 
 
         //初回起動かチェック
