@@ -1,16 +1,34 @@
 package vegy.aso.ac.jp.shudo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import model.PushService;
 import model.Task;
 
 public class MainActivity extends BaseActivity{
     private String TAG = "MainActivity";
+
+    //現在時刻取得
+    public static String getNowTime() {
+        final SimpleDateFormat df = new SimpleDateFormat("HH");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
+
+    public static String getToday() {
+        final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +37,6 @@ public class MainActivity extends BaseActivity{
         List<Task> allTaskList = Task.getAllTask(getApplicationContext());
         for (int i = 0;i< allTaskList.size();i++) {
             String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
-            allTaskList.get(i).increaseImportantLv();
             Log.d(TAG, content);
         }
         //タスク更新テスト
@@ -35,6 +52,12 @@ public class MainActivity extends BaseActivity{
 //        task.setImportant_level(0);
 //        task.addTask();
 
+        //サービスの起動
+        startService(new Intent(this, PushService.class));
+        //とりあえずコメントで残しとく　使わない予定
+//        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
+//        registerReceiver(receiver, filter);
+
 
 
         //初回起動かチェック
@@ -47,10 +70,9 @@ public class MainActivity extends BaseActivity{
 //            transit(TaskListActivity.class, 0);
 
         }
+        checkPreferencesTime();
 
     }
-
-
 
     //初回起動時かチェックする 戻:int 0=初回、1=初回ではない
     private int checkInitState(){
@@ -72,6 +94,7 @@ public class MainActivity extends BaseActivity{
             Log.d(TAG, "初回起動情報の書き込みに失敗しました");
         }
     }
+
     //【開発用】初回起動情報の初期化
     private void cleanInitState() {
         try {
@@ -86,8 +109,48 @@ public class MainActivity extends BaseActivity{
 
     }
 
+    //設定時間チェック
+    //dateで比較　１日１回のみ
+    private void checkPreferencesTime() {
+        //設定時間の読み込み
+        SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
+        int time = preferencesTime.getInt("PreferencesTime", 10);
+        //フラグの読み込み（今日更新したかどうか確認するため）
+        SharedPreferences preferencesFlag = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
+        String flg = preferencesFlag.getString("PreferencesFlag", "0");
+        //起動時間の取得
+        int nowTime = Integer.parseInt(getNowTime());
+        //起動した日付の取得
+        String today = getToday().toString();
+        //log
+        Log.d(TAG, "設定時刻は" + time);
+        Log.d(TAG, "flgは" + flg);
+        Log.d(TAG, "現在時刻は" + nowTime);
+        Log.d(TAG, "今日の日付は" + today);
+        //今日更新したかどうか　していない場合はelseで更新する
+        if (flg.equals(today)) {
+            Log.d(TAG, "間違い");
+        }else {
+            if (time <= nowTime) {
+                //更新する
+                updateImportantLv();
+                //flgに今日の日付を書き込む
+                SharedPreferences.Editor editor = preferencesFlag.edit();
+                editor.putString("PreferencesFlag", today);
+                editor.apply();
+                Log.d(TAG, preferencesFlag.getString("PreferencesFlag", "0"));
+            }
+        }
+    }
 
-
+    //データ更新
+    public void updateImportantLv() {
+        List<Task> taskList = Task.getAllTask(getApplicationContext());
+        Log.d(TAG, taskList.size() + ":タスク数");
+        for (int i = 0; i < taskList.size(); i++) {
+            taskList.get(i).increaseImportantLv();
+        }
+    }
 
 
 }
