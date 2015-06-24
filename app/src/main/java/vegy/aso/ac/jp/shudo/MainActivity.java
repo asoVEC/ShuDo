@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity{
 //        task.addTask();
 
         //サービスの起動
-        startService(new Intent(this, PushService.class));
+//        startService(new Intent(this, PushService.class));
         //とりあえずコメントで残しとく　使わない予定
 //        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
 //        registerReceiver(receiver, filter);
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity{
             transit(PreferenceActivity.class, 0);
         //    transit(TaskListActivity.class, 0);
         }else if (checkInitState() == 0) {
-            transit(PreferenceActivity.class, 0);
+            transit(TaskListActivity.class, 0);
             //   transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
 

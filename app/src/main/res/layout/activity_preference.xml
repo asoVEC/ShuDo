@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="vegy.aso.ac.jp.shudo.PreferenceActivity"
-    android:id="@+id/">
+    >
 
     <TextView
         android:id="@+id/textView"

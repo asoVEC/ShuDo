@@ -48,11 +48,6 @@ public class PreferenceActivity extends Activity {
 //            updateDisplay();
         }
 
-//        private void updateDisplay() {
-//            textView.setText(new StringBuilder().append(hour).append("Žž").append(minute)
-//                    .append("•ª"));
-//        }
-
         @Override
         protected Dialog onCreateDialog(int id) {
             switch (id) {
