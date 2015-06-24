@@ -19,6 +19,7 @@ public class MainActivity extends BaseActivity{
         List<Task> allTaskList = Task.getAllTask(getApplicationContext());
         for (int i = 0;i< allTaskList.size();i++) {
             String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
+            allTaskList.get(i).increaseImportantLv();
             Log.d(TAG, content);
         }
         //タスク更新テスト

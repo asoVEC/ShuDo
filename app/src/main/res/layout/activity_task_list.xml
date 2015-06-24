@@ -49,16 +49,24 @@
                 android:text="追加"
                 android:id="@+id/button" />
 
+
         </LinearLayout>
+
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView">
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gridView" />
+
+        </ScrollView>
 
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
 
 
-        </ScrollView>
 
 </RelativeLayout>

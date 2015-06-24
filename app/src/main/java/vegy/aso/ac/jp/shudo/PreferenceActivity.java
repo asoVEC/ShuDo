@@ -2,6 +2,7 @@ package vegy.aso.ac.jp.shudo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.Dialog;
@@ -44,13 +45,13 @@ public class PreferenceActivity extends Activity {
             hour = c.get(Calendar.HOUR_OF_DAY);
             minute = c.get(Calendar.MINUTE);
 
-            updateDisplay();
+//            updateDisplay();
         }
 
-        private void updateDisplay() {
-            textView.setText(new StringBuilder().append(hour).append("Žž").append(minute)
-                    .append("•ª"));
-        }
+//        private void updateDisplay() {
+//            textView.setText(new StringBuilder().append(hour).append("Žž").append(minute)
+//                    .append("•ª"));
+//        }
 
         @Override
         protected Dialog onCreateDialog(int id) {
@@ -67,7 +68,9 @@ public class PreferenceActivity extends Activity {
                 hour = hourOfDay;
                 minute = selectMinute;
 
-                updateDisplay();
+                Log.d("hour", hourOfDay + ":" + selectMinute );
+
+//                updateDisplay();
             }
         };
 }
