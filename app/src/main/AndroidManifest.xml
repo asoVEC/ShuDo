@@ -32,6 +32,10 @@
             android:name=".AddTaskActivity2"
             android:label="@string/title_activity_management_task" >
         </activity>
+        <activity
+            android:name=".PreferenceActivity"
+            android:label="@string/title_activity_management_task" >
+        </activity>
         <receiver android:name="model.Receiver"></receiver>
     </application>
 

@@ -18,7 +18,7 @@ import model.PushService;
 import model.Receiver;
 import model.Task;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
     private String TAG = "MainActivity";
     int notificationId;
     private PendingIntent alarmIntent;
@@ -41,8 +41,8 @@ public class MainActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         List<Task> allTaskList = Task.getAllTask(getApplicationContext());
-        for (int i = 0;i< allTaskList.size();i++) {
-            String content = String.valueOf(allTaskList.get(i).getTaskId()+allTaskList.get(i).getContent()+allTaskList.get(i).getImportant_level());
+        for (int i = 0; i < allTaskList.size(); i++) {
+            String content = String.valueOf(allTaskList.get(i).getTaskId() + allTaskList.get(i).getContent() + allTaskList.get(i).getImportant_level());
             Log.d(TAG, content);
         }
         //タスク更新テスト
@@ -69,44 +69,45 @@ public class MainActivity extends BaseActivity{
         bootIntent.putExtra("notificationId", notificationId);
         alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-                int hour = 15;
-                int minute = 11;
+        int hour = 13;
+        int minute = 00;
 
-                Calendar startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR_OF_DAY, hour);
-                startTime.set(Calendar.MINUTE, minute);
-                startTime.set(Calendar.SECOND, 0);
-                long alarmStartTime = startTime.getTimeInMillis();
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, hour);
+        startTime.set(Calendar.MINUTE, minute);
+        startTime.set(Calendar.SECOND, 0);
+        long alarmStartTime = startTime.getTimeInMillis();
 
-                alarm.set(
-                        AlarmManager.RTC_WAKEUP,
-                        alarmStartTime,
-                        alarmIntent
-                );
-                notificationId++;
+        alarm.set(
+                AlarmManager.RTC_WAKEUP,
+                alarmStartTime,
+                alarmIntent
+        );
+        notificationId++;
 
 
         //初回起動かチェック
         if (checkInitState() == 1) {
-            transit(PreferenceActivity.class, 0);
-        //    transit(TaskListActivity.class, 0);
-        }else if (checkInitState() == 0) {
+            transit(TaskListActivity.class, 0);
+            //    transit(TaskListActivity.class, 0);
+        } else if (checkInitState() == 0) {
+             updateInitState();
             transit(TaskListActivity.class, 0);
             //   transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
 
         }
-        checkPreferencesTime();
+//        checkPreferencesTime();
 
     }
 
     //初回起動時かチェックする 戻:int 0=初回、1=初回ではない
-    private int checkInitState(){
+    private int checkInitState() {
         int initState = 0;
         SharedPreferences data = getSharedPreferences("initState", Context.MODE_PRIVATE);
-        initState = data.getInt("initState",0 );
+        initState = data.getInt("initState", 0);
         return initState;
     }
 
@@ -139,46 +140,42 @@ public class MainActivity extends BaseActivity{
 
     //設定時間チェック
     //dateで比較　１日１回のみ
-    private void checkPreferencesTime() {
-        //設定時間の読み込み
-        SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
-        int time = preferencesTime.getInt("PreferencesTime", 10);
-        //フラグの読み込み（今日更新したかどうか確認するため）
-        SharedPreferences preferencesFlag = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
-        String flg = preferencesFlag.getString("PreferencesFlag", "0");
-        //起動時間の取得
-        int nowTime = Integer.parseInt(getNowTime());
-        //起動した日付の取得
-        String today = getToday().toString();
-        //log
-        Log.d(TAG, "設定時刻は" + time);
-        Log.d(TAG, "flgは" + flg);
-        Log.d(TAG, "現在時刻は" + nowTime);
-        Log.d(TAG, "今日の日付は" + today);
-        //今日更新したかどうか　していない場合はelseで更新する
-        if (flg.equals(today)) {
-            Log.d(TAG, "間違い");
-        }else {
-            if (time <= nowTime) {
-                //更新する
-                updateImportantLv();
-                //flgに今日の日付を書き込む
-                SharedPreferences.Editor editor = preferencesFlag.edit();
-                editor.putString("PreferencesFlag", today);
-                editor.apply();
-                Log.d(TAG, preferencesFlag.getString("PreferencesFlag", "0"));
-            }
-        }
-    }
-
-    //データ更新
-    public void updateImportantLv() {
-        List<Task> taskList = Task.getAllTask(getApplicationContext());
-        Log.d(TAG, taskList.size() + ":タスク数");
-        for (int i = 0; i < taskList.size(); i++) {
-            taskList.get(i).increaseImportantLv();
-        }
-    }
-
-
+//    private void checkPreferencesTime() {
+//        //設定時間の読み込み
+//        SharedPreferences preferencesTime = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
+//        int time = preferencesTime.getInt("PreferencesTime", 10);
+//        //フラグの読み込み（今日更新したかどうか確認するため）
+//        SharedPreferences preferencesFlag = getSharedPreferences("PreferencesTime", Context.MODE_PRIVATE);
+//        String flg = preferencesFlag.getString("PreferencesFlag", "0");
+//        //起動時間の取得
+//        int nowTime = Integer.parseInt(getNowTime());
+//        //起動した日付の取得
+//        String today = getToday().toString();
+//        //log
+//        Log.d(TAG, "設定時刻は" + time);
+//        Log.d(TAG, "flgは" + flg);
+//        Log.d(TAG, "現在時刻は" + nowTime);
+//        Log.d(TAG, "今日の日付は" + today);
+//        //今日更新したかどうか　していない場合はelseで更新する
+//        if (flg.equals(today)) {
+//            Log.d(TAG, "間違い");
+//        } else {
+//            if (time <= nowTime) {
+//                //更新する
+//                updateImportantLv();
+//                //flgに今日の日付を書き込む
+//                SharedPreferences.Editor editor = preferencesFlag.edit();
+//                editor.putString("PreferencesFlag", today);
+//                editor.apply();
+//                Log.d(TAG, preferencesFlag.getString("PreferencesFlag", "0"));
+//            }
+//        }
+//    }
+//
+//    //データ更新
+//    public void updateImportantLv() {
+//        List<Task> taskList = Task.getAllTask(getApplicationContext());
+//        Log.d(TAG, taskList.size() + ":タスク数");
+//
+//    }
 }

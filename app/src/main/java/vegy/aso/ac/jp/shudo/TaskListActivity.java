@@ -43,26 +43,26 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         tommorowButton.setOnClickListener(this);
         bt.setOnClickListener(this);
         //タスクの取得
-        if (flg == false){
-            title.setText("明日以降の予定一覧");
-            taskList = Task.getTommorowTask(getApplicationContext());
-            Log.d(TAG, "明日");
-        }
+            if (flg == false) {
+                title.setText("明日以降の予定一覧");
+                taskList = Task.getTommorowTask(getApplicationContext());
+                Log.d(TAG, "明日");
+            }
 
-        if (flg == true) {
-            title.setText("今日の予定一覧");
-            taskList = Task.getTodayTask(getApplicationContext());
-            Log.d(TAG, "今日");
-        }
+            if (flg == true) {
+                title.setText("今日の予定一覧");
+                taskList = Task.getTodayTask(getApplicationContext());
+                Log.d(TAG, "今日");
+            }
 
-        for (int i = 0;i< taskList.size();i++) {
-            String task = String.valueOf(taskList.get(i).getContent() + taskList.get(i).getImportant_level());
-            Log.d(TAG, task);
-        }
+            for (int i = 0; i < taskList.size(); i++) {
+                String task = String.valueOf(taskList.get(i).getContent() + taskList.get(i).getImportant_level());
+                Log.d(TAG, task);
+            }
 //        Toast.makeText(this, taskList.size(), Toast.LENGTH_LONG).show();
             //表示する
-        taskDisplay(taskList);
-    }
+            taskDisplay(taskList);
+        }
 
     public void taskDisplay(List<Task> taskList) {
 //        TextView tv_ic_hello = (TextView) findViewById(R.id.title_tasklist);

@@ -8,6 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vegy.aso.ac.jp.shudo.MainActivity;
 import vegy.aso.ac.jp.shudo.R;
@@ -23,42 +27,68 @@ public class Receiver extends BroadcastReceiver {
 //        throw new UnsupportedOperationException("Not yet implemented");
 //    }
 //}
-
-    private Context alarmReceiverContext;
+    private String TAG = "receiver";
+    private Context taskContext;
     private int notificationProvisionalId;
 
     @Override
     public void onReceive(Context context, Intent receivedIntent) {
 
-        alarmReceiverContext = context;
+        taskContext = context;
+        List pushList = new ArrayList();
+        try {
+            List<Task> taskList = Task.getAllTask(context);
+            for (int i = 0; i < taskList.size(); i++) {
+                taskList.get(i).increaseImportantLv();
+            }
+            Log.d(TAG, taskList.size() + ":タスク数");
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).getImportant_level() >= 3) {
+                    pushList.add(taskList.get(i).getContent());
+                }
 
-        notificationProvisionalId = receivedIntent.getIntExtra("notificationId", 0);
-        NotificationManager myNotification = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification = prepareNotification();
-        myNotification.notify(notificationProvisionalId, notification);
+            }
+//        if (lv>=3){
+//
+//
+//        }
+            if (pushList.size() > 0) {
+                notificationProvisionalId = receivedIntent.getIntExtra("notificationId", 0);
+                NotificationManager myNotification = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notification = prepareNotification(pushList);
+                myNotification.notify(notificationProvisionalId, notification);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
-    private Notification prepareNotification() {
+    private Notification prepareNotification(List pushList) {
+        String display = pushList.get(0).toString();
+
+        if (pushList.size() > 1){
+            display += "残り"+String.valueOf(pushList.size()-1)+"個のタスクが残っています";
+        }
 
         Intent bootIntent =
-                new Intent(alarmReceiverContext, MainActivity.class);
+                new Intent(taskContext, MainActivity.class);
         PendingIntent contentIntent =
-                PendingIntent.getActivity(alarmReceiverContext, 0, bootIntent, 0);
+                PendingIntent.getActivity(taskContext, 0, bootIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                alarmReceiverContext);
+                taskContext);
         builder.setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setTicker("ウェーイ!")
-                .setContentTitle("ウェーイ!")
+                .setTicker("ShuDo")
+                .setContentTitle(display)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setContentIntent(contentIntent);
 
-        NotificationCompat.BigPictureStyle pictureStyle =
-                new NotificationCompat.BigPictureStyle(builder);
-        pictureStyle.bigPicture(BitmapFactory.decodeResource(alarmReceiverContext.getResources(), R.drawable.husen));
+//        NotificationCompat.BigPictureStyle pictureStyle =
+//                new NotificationCompat.BigPictureStyle(builder);
+//        pictureStyle.bigPicture(BitmapFactory.decodeResource(taskContext.getResources(), R.drawable.husen));
 
-        return pictureStyle.build();
+        return builder.build();
     }
 }
