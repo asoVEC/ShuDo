@@ -2,7 +2,6 @@ package vegy.aso.ac.jp.shudo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -54,9 +53,9 @@ public class MainActivity extends BaseActivity{
 
         //初回起動かチェック
         if (checkInitState() == 1) {
-            transit(TaskListActivity.class, 0);
+            transit(TaskListActivity2.class, 1);
         }else if (checkInitState() == 0) {
-            transit(AddTaskActivity.class, 0);
+            transit(AddTaskActivity.class, 1);
 //            transit(TaskListActivity.class, 0);
 
         }

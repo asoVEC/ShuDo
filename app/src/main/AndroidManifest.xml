@@ -32,6 +32,9 @@
             android:name=".AddTaskActivity2"
             android:label="@string/title_activity_management_task" >
         </activity>
+        <activity
+            android:name=".TaskListActivity2"
+            android:label="@string/title_activity_task_list2"></activity>
     </application>
 
 </manifest>
