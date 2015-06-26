@@ -12,5 +12,4 @@
     <string name="today_activity_addtask">今日</string>
     <string name="tomorrow_activity_addtask">明日以降</string>
     <string name="signup_activity_addtask">登録</string>
-    <string name="title_activity_task_list2">TaskListActivity2</string>
 </resources>

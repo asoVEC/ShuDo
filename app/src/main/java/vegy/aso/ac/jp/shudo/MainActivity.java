@@ -2,6 +2,7 @@ package vegy.aso.ac.jp.shudo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -37,25 +38,25 @@ public class MainActivity extends BaseActivity{
             Log.d(TAG, content);
         }
         //タスク更新テスト
-//        task_layout.getAllTask().get(0).updateTask(2);
+//        task.getAllTask().get(0).updateTask(2);
 
         //タスク削除テスト
-//        task_layout.getAllTask().get(0).deleteTask();
+//        task.getAllTask().get(0).deleteTask();
 
 
         //タスク追加テスト
-//        Task task_layout = new Task(getApplicationContext());
-//        task_layout.setContent("きみやと焼肉");
-//        task_layout.setImportant_level(0);
-//        task_layout.addTask();
+//        Task task = new Task(getApplicationContext());
+//        task.setContent("きみやと焼肉");
+//        task.setImportant_level(0);
+//        task.addTask();
 
 
 
         //初回起動かチェック
         if (checkInitState() == 1) {
-            transit(TaskListActivity2.class, 1);
+            transit(TaskListActivity.class, 0);
         }else if (checkInitState() == 0) {
-            transit(AddTaskActivity.class, 1);
+            transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
 
         }
