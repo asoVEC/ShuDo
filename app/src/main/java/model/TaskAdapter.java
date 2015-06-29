@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 import vegy.aso.ac.jp.shudo.R;
 
 /**
@@ -16,8 +18,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
-    public TaskAdapter(Context context, int resource, Task[] objects) {
-        super(context, resource, objects);
+    public TaskAdapter(Context context, int resource, List<Task> taskList) {
+        super(context, resource, taskList);
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
