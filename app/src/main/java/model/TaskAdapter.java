@@ -7,32 +7,48 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.List;
-
 import vegy.aso.ac.jp.shudo.R;
 
 /**
  * Created by Aki on 15/06/23.
  */
 public class TaskAdapter extends ArrayAdapter<Task> {
-    private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private LayoutInflater mLayoutInflater;
 
-    public TaskAdapter(Context context, int resource, List<Task> objects) {
+    public TaskAdapter(Context context, int resource, Task[] objects) {
         super(context, resource, objects);
+        mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         // Viewは作成済みのものがあれば再利用
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.task_layout, null);
         }
+
         Task task = (Task) getItem(position);
-        TextView content = (TextView) convertView.findViewById(R.id.task_content);
-        content.setText(task.getContent());
+        TextView title = (TextView) convertView.findViewById(R.id.task_content);
+        title.setText(task.getContent());
+
+
+
+
+
+
+
+
+
+
+
 
         return convertView;
+    }
+
+    class TaskHolder {
+        TextView taskContent;
     }
 }

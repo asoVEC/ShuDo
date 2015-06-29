@@ -2,7 +2,6 @@ package vegy.aso.ac.jp.shudo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -48,14 +47,20 @@ public class MainActivity extends BaseActivity{
 //        Task task = new Task(getApplicationContext());
 //        task.setContent("きみやと焼肉");
 //        task.setImportant_level(0);
-//        task.addTask();
-
+//        try {
+//            task.addTask();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
         //初回起動かチェック
         if (checkInitState() == 1) {
-            transit(TaskListActivity.class, 0);
+            Log.w(TAG, "初回起動ではありません");
+            transit(TaskListActivity2.class, 0);
         }else if (checkInitState() == 0) {
+            Log.w(TAG, "初回起動です");
+            updateInitState();//←消さないで!
             transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
 
