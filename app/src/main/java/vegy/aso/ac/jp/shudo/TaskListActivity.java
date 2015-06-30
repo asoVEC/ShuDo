@@ -25,14 +25,14 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
         flg = true;
-        Log.d(TAG, flg + ":CREATE");
+//        Log.d(TAG, flg + ":CREATE");
     }
     //基本処理
     @Override
     protected void onResume() {
         super.onResume();
         //宣言
-        Log.d(TAG, flg + ":RESUME");
+//        Log.d(TAG, flg + ":RESUME");
         TextView title = (TextView) findViewById(R.id.title_tasklist);
         Button todayButton = (Button) findViewById(R.id.todday_button_tasklist);
         Button tommorowButton = (Button) findViewById(R.id.tommorow_button_tasklist);

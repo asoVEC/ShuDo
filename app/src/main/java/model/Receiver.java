@@ -13,10 +13,13 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import vegy.aso.ac.jp.shudo.AddTaskActivity;
 import vegy.aso.ac.jp.shudo.MainActivity;
 import vegy.aso.ac.jp.shudo.R;
+import vegy.aso.ac.jp.shudo.TaskListActivity;
 
 public class Receiver extends BroadcastReceiver {
+
     public Receiver() {
     }
 //
@@ -33,10 +36,11 @@ public class Receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent receivedIntent) {
-
+        Intent intentActivity = new Intent(context, TaskListActivity.class);
+        intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intentActivity);
         taskContext = context;
         List pushList = new ArrayList();
-        try {
             List<Task> taskList = Task.getAllTask(context);
             for (int i = 0; i < taskList.size(); i++) {
                 taskList.get(i).increaseImportantLv();
@@ -58,9 +62,6 @@ public class Receiver extends BroadcastReceiver {
                 Notification notification = prepareNotification(pushList);
                 myNotification.notify(notificationProvisionalId, notification);
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
     }
 
@@ -72,7 +73,7 @@ public class Receiver extends BroadcastReceiver {
         }
 
         Intent bootIntent =
-                new Intent(taskContext, MainActivity.class);
+                new Intent(taskContext, TaskListActivity.class);
         PendingIntent contentIntent =
                 PendingIntent.getActivity(taskContext, 0, bootIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(

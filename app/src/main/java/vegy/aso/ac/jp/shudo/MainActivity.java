@@ -22,20 +22,6 @@ public class MainActivity extends BaseActivity {
     private String TAG = "MainActivity";
     int notificationId;
     private PendingIntent alarmIntent;
-
-    //現在時刻取得
-    public static String getNowTime() {
-        final SimpleDateFormat df = new SimpleDateFormat("HH");
-        final Date date = new Date(System.currentTimeMillis());
-        return df.format(date);
-    }
-
-    public static String getToday() {
-        final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-        final Date date = new Date(System.currentTimeMillis());
-        return df.format(date);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,15 +50,15 @@ public class MainActivity extends BaseActivity {
 //        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
 //        registerReceiver(receiver, filter);
 
-
+        //receiver
         Intent bootIntent = new Intent(MainActivity.this, Receiver.class);
         bootIntent.putExtra("notificationId", notificationId);
         alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        int hour = 13;
-        int minute = 00;
+        int hour = 10;
+        int minute = 12;
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, hour);
@@ -97,9 +83,7 @@ public class MainActivity extends BaseActivity {
             transit(TaskListActivity.class, 0);
             //   transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
-
         }
-//        checkPreferencesTime();
 
     }
 

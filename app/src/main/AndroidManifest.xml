@@ -36,7 +36,13 @@
             android:name=".PreferenceActivity"
             android:label="@string/title_activity_management_task" >
         </activity>
-        <receiver android:name="model.Receiver"></receiver>
+        <receiver android:name="model.Receiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <uses-permission
+                    android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
