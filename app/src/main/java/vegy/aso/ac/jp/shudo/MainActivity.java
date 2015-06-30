@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity{
 //        task.getAllTask().get(0).deleteTask();
 
 
-        //タスク追加テスト
+//        //タスク追加テスト
 //        Task task = new Task(getApplicationContext());
 //        task.setContent("きみやと焼肉");
 //        task.setImportant_level(0);
