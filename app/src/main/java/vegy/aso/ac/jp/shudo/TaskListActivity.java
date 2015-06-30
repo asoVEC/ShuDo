@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -65,9 +64,6 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void taskDisplay(List<Task> taskList) {
-//        TextView tv_ic_hello = (TextView) findViewById(R.id.title_tasklist);
-//        tv_ic_hello.setBackgroundResource(R.drawable.husen);
-//        tv_ic_hello.setText(taskList.get(0).getContent());
 
         for (int i = 0; i < taskList.size(); i++) {
 

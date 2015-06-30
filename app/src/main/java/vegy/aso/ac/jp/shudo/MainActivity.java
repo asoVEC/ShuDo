@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-//import model.PushService;
+import model.PushService;
 import model.Task;
 
 public class MainActivity extends BaseActivity{
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity{
 //        task.addTask();
 
         //サービスの起動
-        //startService(new Intent(this, PushService.class));
+        startService(new Intent(this, PushService.class));
         //とりあえずコメントで残しとく　使わない予定
 //        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
 //        registerReceiver(receiver, filter);
