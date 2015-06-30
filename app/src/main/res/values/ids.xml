@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tvTime" type="id" />
+    <item name="timePicker1" type="id" />
+    <item name="btnChangeTime" type="id" />
+    <item name="todday_button_tasklist" type="id" />
+    <item name="tommorow_button_tasklist" type="id" />
+</resources>

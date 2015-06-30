@@ -62,7 +62,7 @@ public class PreferenceActivity extends Activity {
             return null;
         }
 
-        private OnTimeSetListener timeSetListener = new OnTimeSetListener() {
+    private OnTimeSetListener timeSetListener = new OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int selectMinute) {
                 hour = hourOfDay;
@@ -71,6 +71,10 @@ public class PreferenceActivity extends Activity {
                 Log.d("hour", hourOfDay + ":" + selectMinute );
 
 //                updateDisplay();
-            }
-        };
+         }
+       };
 }
+
+
+
+
