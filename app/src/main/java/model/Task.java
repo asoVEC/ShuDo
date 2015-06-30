@@ -55,22 +55,22 @@ public class Task {
     }
 
     public static List<Task> getAllTask(Context context) {
-        String sqlstr = "select * from task_layout;";
+        String sqlstr = "select * from task;";
         return getTask(context, sqlstr);
     }
 
     public static List<Task> getTodayTask(Context context) {
-        String sqlstr = "select * from task_layout where important_lv <> -1";
+        String sqlstr = "select * from task where important_lv <> -1";
         return getTask(context, sqlstr);
     }
 
     public static List<Task> getTommorowTask(Context context) {
-        String sqlstr = "select * from task_layout where important_lv = -1";
+        String sqlstr = "select * from task where important_lv = -1";
         return getTask(context, sqlstr);
     }
 
     public static List<Task> getTaskByImportantLv(Context context, int lv) {
-        String sqlstr = "select * from task_layout where important_lv = " + lv + ";";
+        String sqlstr = "select * from task where important_lv = " + lv + ";";
         return getTask(context, sqlstr);
     }
 
@@ -106,7 +106,7 @@ public class Task {
             //もしくは、
             //sdb = helper.getReadableDatabase();
 
-            String sql = "INSERT INTO task_layout(task_layout,important_lv) VALUES(?,?)";
+            String sql = "INSERT INTO task(task_layout,important_lv) VALUES(?,?)";
             Log.d(TAG, "(" + content + "," + important_level + ")をtaskテーブルに挿入します");
             //INSERT,DELETE,UPDATE文の実行メソッド=execSQL
 //                sdb.execSQL(sql, new String[]{"task_layout" + content, "important_lv" + 0});
@@ -130,7 +130,7 @@ public class Task {
                 //異常終了
             }
             try {
-                String sql = "delete from task_layout where _id == " + taskId;
+                String sql = "delete from task where _id == " + taskId;
                 sdb.execSQL(sql);
             } catch (Exception e) {
                 e.getMessage();
@@ -154,7 +154,7 @@ public class Task {
                 //異常終了
             }
             try {
-                String sql = "update task_layout set important_lv = "+ important_level +" where _id == " + taskId;
+                String sql = "update task set important_lv = "+ important_level +" where _id == " + taskId;
                 sdb.execSQL(sql);
             } catch (Exception e) {
                 e.getMessage();

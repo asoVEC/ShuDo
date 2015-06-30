@@ -13,24 +13,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import model.PushService;
 import model.Receiver;
 import model.Task;
 
 public class MainActivity extends BaseActivity {
     private String TAG = "MainActivity";
-    int notificationId;
-    private PendingIntent alarmIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<Task> allTaskList = Task.getAllTask(getApplicationContext());
-        for (int i = 0; i < allTaskList.size(); i++) {
-            String content = String.valueOf(allTaskList.get(i).getTaskId() + allTaskList.get(i).getContent() + allTaskList.get(i).getImportant_level());
-            Log.d(TAG, content);
-        }
+//        List<Task> allTaskList = Task.getAllTask(getApplicationContext());
+//        for (int i = 0; i < allTaskList.size(); i++) {
+//            String content = String.valueOf(allTaskList.get(i).getTaskId() + allTaskList.get(i).getContent() + allTaskList.get(i).getImportant_level());
+//            Log.d(TAG, content);
+//        }
         //タスク更新テスト
 //        task.getAllTask().get(0).updateTask(2);
 
@@ -50,28 +47,6 @@ public class MainActivity extends BaseActivity {
 //        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
 //        registerReceiver(receiver, filter);
 
-        //receiver
-        Intent bootIntent = new Intent(MainActivity.this, Receiver.class);
-        bootIntent.putExtra("notificationId", notificationId);
-        alarmIntent = PendingIntent.getBroadcast(MainActivity.this, 0, bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        int hour = 10;
-        int minute = 12;
-
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, hour);
-        startTime.set(Calendar.MINUTE, minute);
-        startTime.set(Calendar.SECOND, 0);
-        long alarmStartTime = startTime.getTimeInMillis();
-
-        alarm.set(
-                AlarmManager.RTC_WAKEUP,
-                alarmStartTime,
-                alarmIntent
-        );
-        notificationId++;
 
 
         //初回起動かチェック

@@ -90,7 +90,7 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
 //                startActivity(getIntent());
                 break;
             case R.id. button :
-                transit(AddTaskActivity.class, 0);
+                transit(PreferenceActivity.class, 0);
                 break;
         }
     }
