@@ -1,19 +1,10 @@
 package vegy.aso.ac.jp.shudo;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import model.Receiver;
 import model.Task;
 
 public class MainActivity extends BaseActivity {
@@ -36,10 +27,14 @@ public class MainActivity extends BaseActivity {
 
 
         //タスク追加テスト
-//        Task task = new Task(getApplicationContext());
-//        task.setContent("きみやと焼肉");
-//        task.setImportant_level(0);
-//        task.addTask();
+        Task task = new Task(getApplicationContext());
+        task.setContent("きみやと焼肉とステーキとラーメンとチャーハンと餃子とカレーライスとパフェを食べる");
+        task.setImportant_level(0);
+        try {
+            task.addTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //サービスの起動
 //        startService(new Intent(this, PushService.class));
@@ -51,11 +46,11 @@ public class MainActivity extends BaseActivity {
 
         //初回起動かチェック
         if (checkInitState() == 1) {
-            transit(TaskListActivity.class, 0);
+            transit(TaskListActivity2.class, 0);
             //    transit(TaskListActivity.class, 0);
         } else if (checkInitState() == 0) {
              updateInitState();
-            transit(TaskListActivity.class, 0);
+            transit(TaskListActivity2.class, 0);
             //   transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
         }
