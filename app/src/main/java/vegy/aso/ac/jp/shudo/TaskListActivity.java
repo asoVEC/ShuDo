@@ -77,17 +77,13 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
             case R.id.todday_button_tasklist:
                 flg = true;
                 onResume();
-//                finish();
-//                startActivity(getIntent());
                 Log.d(TAG, flg + ":TODDAY CLICK");
                 break;
             case R.id.tommorow_button_tasklist:
                 flg = false;
 
                 Log.d(TAG, flg + ":TOMMOROW CLICK");
-//                finish();
                 onResume();
-//                startActivity(getIntent());
                 break;
             case R.id. button :
                 transit(PreferenceActivity.class, 0);
