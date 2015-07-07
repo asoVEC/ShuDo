@@ -21,7 +21,7 @@ public class TaskListActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_task_list);
         List<Task> allTaskList = Task.getAllTask(getApplicationContext());
         TaskAdapter taskAdapter = new TaskAdapter(getApplicationContext(), R.layout.task_layout, allTaskList);
-
+        taskAdapter.setNotifyOnChange(true);
         GridView gridView = (GridView) findViewById(R.id.gv_taskList);
         gridView.setAdapter(taskAdapter);
 

@@ -24,7 +24,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper  {
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "DB初回接続です");
         db.execSQL(CREATE_STATEMENT);
-//        db.execSQL(INSERT_STATMENT);
+        db.execSQL(INSERT_STATMENT);
 
     }
 
