@@ -8,16 +8,28 @@ import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import model.PushService;
 import model.Receiver;
 import model.Task;
 
 public class MainActivity extends BaseActivity {
     private String TAG = "MainActivity";
+    Context c;
+    private PendingIntent mAlarmSender;
+
+//    public MainActivity(Context c){
+//        // 初期化
+//        this.c = c;
+//        am = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
+//        Log.v(TAG,"初期化完了");
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +58,7 @@ public class MainActivity extends BaseActivity {
         //とりあえずコメントで残しとく　使わない予定
 //        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
 //        registerReceiver(receiver, filter);
-
-
-
+        addAlarm();
         //初回起動かチェック
         if (checkInitState() == 1) {
             transit(TaskListActivity.class, 0);
@@ -60,6 +70,57 @@ public class MainActivity extends BaseActivity {
 //            transit(TaskListActivity.class, 0);
         }
 
+
+
+    }
+
+    public void addAlarm(){
+        // アラームを設定する
+        mAlarmSender = this.getPendingIntent();
+        //時間設定
+        SharedPreferences minuteTime = getSharedPreferences("MinuteTime", Context.MODE_PRIVATE);
+        int minute = minuteTime.getInt("MinuteTime", 0);
+        Log.d(TAG,minute+"設定時間minute");
+        SharedPreferences hourTime = getSharedPreferences("HourTime", Context.MODE_PRIVATE);
+        int hour = hourTime.getInt("HourTime", 8);
+        Log.d(TAG,hour+"hour");
+
+        // アラーム時間設定
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        // 設定した時刻をカレンダーに設定
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        // 過去だったら明日にする
+        if(cal.getTimeInMillis() < System.currentTimeMillis()) {
+            cal.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+// AlarmManager.RTC_WAKEUPで端末スリープ時に起動させるようにする
+// 1回だけ通知の場合はalarmManager.set()を使う
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+// 一日毎にアラームを呼び出す
+                AlarmManager.INTERVAL_DAY, mAlarmSender);
+
+//        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//    am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), mAlarmSender);
+}
+//    public void stopAlarm() {
+//        // アラームのキャンセル
+//        Log.d(TAG, "stopAlarm()");
+//        am.cancel(mAlarmSender);
+//        spm.updateToRevival();ｊ
+//    }
+
+    private PendingIntent getPendingIntent() {
+        // アラーム時に起動するアプリケーションを登録
+        Intent intent = new Intent(getApplicationContext(),PushService.class);
+//        transit(PushService.class, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), PendingIntent.FLAG_ONE_SHOT, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return pendingIntent;
     }
 
     //初回起動時かチェックする 戻:int 0=初回、1=初回ではない

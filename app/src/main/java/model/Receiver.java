@@ -38,8 +38,10 @@ public class Receiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent receivedIntent) {
         Intent intentActivity = new Intent(context, TaskListActivity.class);
         intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intentActivity);
+//        context.startActivity(intentActivity);
         taskContext = context;
+//        MainActivity main = new MainActivity();
+//        main.addAlarm();
         List pushList = new ArrayList();
             List<Task> taskList = Task.getAllTask(context);
             for (int i = 0; i < taskList.size(); i++) {
@@ -52,10 +54,6 @@ public class Receiver extends BroadcastReceiver {
                 }
 
             }
-//        if (lv>=3){
-//
-//
-//        }
             if (pushList.size() > 0) {
                 notificationProvisionalId = receivedIntent.getIntExtra("notificationId", 0);
                 NotificationManager myNotification = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -85,11 +83,6 @@ public class Receiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setContentIntent(contentIntent);
-
-//        NotificationCompat.BigPictureStyle pictureStyle =
-//                new NotificationCompat.BigPictureStyle(builder);
-//        pictureStyle.bigPicture(BitmapFactory.decodeResource(taskContext.getResources(), R.drawable.husen));
-
         return builder.build();
     }
 }

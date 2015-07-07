@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,8 +19,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.text.format.Time;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import model.Receiver;
 
@@ -61,7 +68,6 @@ public class PreferenceActivity extends Activity {
         super.onResume();
 
 
-
     }
 
     @Override
@@ -76,32 +82,30 @@ public class PreferenceActivity extends Activity {
     private OnTimeSetListener timeSetListener = new OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int selectMinute) {
+
                 hour = hourOfDay;
                 minute = selectMinute;
 
                 Log.d("hour", hourOfDay + ":" + selectMinute );
-                //receiver
-                Intent bootIntent = new Intent(PreferenceActivity.this, Receiver.class);
-                bootIntent.putExtra("notificationId", notificationId);
-                alarmIntent = PendingIntent.getBroadcast(PreferenceActivity.this, 0, bootIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                SharedPreferences data = getSharedPreferences("MinuteTime", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = data.edit();
+                editor.putInt("MinuteTime", selectMinute);
+                editor.apply();
+                SharedPreferences data2 = getSharedPreferences("HourTime", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = data2.edit();
+                editor2.putInt("HourTime", hourOfDay);
+                editor2.apply();
+//                MainActivity main = new MainActivity();
+//                main.addAlarm();
 
-                int hour2 = 10;
-                int minute2 = 12;
 
-                Calendar startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR_OF_DAY, hour);
-                startTime.set(Calendar.MINUTE, minute);
-                startTime.set(Calendar.SECOND, 0);
-                long alarmStartTime = startTime.getTimeInMillis();
+//                // 現在の時刻を取得
+//                Date date = new Date();
+//                // 表示形式を設定
+//                SimpleDateFormat sdf = new SimpleDateFormat("kkmm");
+//                int now = Integer.parseInt(sdf.toString());
 
-                alarm.set(
-                        AlarmManager.RTC_WAKEUP,
-                        alarmStartTime,
-                        alarmIntent
-                );
-                notificationId++;
 
          }
        };

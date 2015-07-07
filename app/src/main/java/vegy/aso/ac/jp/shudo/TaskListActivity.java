@@ -36,7 +36,8 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         Button todayButton = (Button) findViewById(R.id.todday_button_tasklist);
         Button tommorowButton = (Button) findViewById(R.id.tommorow_button_tasklist);
         Button bt = (Button) findViewById(R.id.button);
-
+        Button bt2 = (Button) findViewById(R.id.pre);
+        bt2.setOnClickListener(this);
         //ボタンクリック処理
         todayButton.setOnClickListener(this);
         tommorowButton.setOnClickListener(this);
@@ -53,21 +54,21 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
                 taskList = Task.getTodayTask(getApplicationContext());
                 Log.d(TAG, "今日");
             }
-
+//
             for (int i = 0; i < taskList.size(); i++) {
                 String task = String.valueOf(taskList.get(i).getContent() + taskList.get(i).getImportant_level());
                 Log.d(TAG, task);
             }
 //        Toast.makeText(this, taskList.size(), Toast.LENGTH_LONG).show();
             //表示する
-            taskDisplay(taskList);
+//            taskDisplay(taskList);
         }
 
     public void taskDisplay(List<Task> taskList) {
 
-        for (int i = 0; i < taskList.size(); i++) {
+//        for (int i = 0; i < taskList.size(); i++) {
 
-        }
+//        }
 
     }
 
@@ -90,6 +91,9 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
 //                startActivity(getIntent());
                 break;
             case R.id. button :
+                transit(AddTaskActivity.class, 0);
+                break;
+            case R.id. pre :
                 transit(PreferenceActivity.class, 0);
                 break;
         }
