@@ -95,15 +95,12 @@ public class PreferenceActivity extends Activity {
 //                MainActivity main = new MainActivity();
                 addAlarm();
                 textView2.setText(hour+"時"+minute+"分です");
-
-
+                
 //                // 現在の時刻を取得
 //                Date date = new Date();
 //                // 表示形式を設定
 //                SimpleDateFormat sdf = new SimpleDateFormat("kkmm");
 //                int now = Integer.parseInt(sdf.toString());
-
-
          }
        };
 
@@ -142,12 +139,6 @@ public class PreferenceActivity extends Activity {
 //        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 //    am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), mAlarmSender);
     }
-//    public void stopAlarm() {
-//        // アラームのキャンセル
-//        Log.d(TAG, "stopAlarm()");
-//        am.cancel(mAlarmSender);
-//        spm.updateToRevival();ｊ
-//    }
 
     private PendingIntent getPendingIntent() {
         // アラーム時に起動するアプリケーションを登録
@@ -156,8 +147,6 @@ public class PreferenceActivity extends Activity {
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), PendingIntent.FLAG_ONE_SHOT, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return pendingIntent;
     }
-
-
 }
 
 
