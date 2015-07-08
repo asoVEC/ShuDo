@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name=".TaskListActivity2"
-            android:label="@string/title_activity_task_list"></activity>
+            android:label="@string/title_activity_task_list" />
         <activity
             android:name=".TutorialActivity"
             android:label="@string/title_activity_tutorial" >
@@ -48,6 +48,7 @@
                 <action android:name="MyAlarmAction" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="model.PushService"
             android:enabled="true"

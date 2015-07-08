@@ -8,35 +8,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.text.format.Time;
-
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import model.Receiver;
+import model.PushService;
 
 public class PreferenceActivity extends Activity {
 
 
         private TextView textView;
+    private TextView textView2;
         private Button button;
         private int hour;
         private int minute;
+    private PendingIntent mAlarmSender;
+    private String TAG ="PreferenceActivity";
 
         private static final int TIME_DIALOG_ID = 0;
     int notificationId;
@@ -59,15 +51,19 @@ public class PreferenceActivity extends Activity {
             Calendar c = Calendar.getInstance();
             hour = c.get(Calendar.HOUR_OF_DAY);
             minute = c.get(Calendar.MINUTE);
+            textView2 = (TextView) findViewById(R.id.set_time);
 
-//            updateDisplay();
+            SharedPreferences minuteTime = getSharedPreferences("MinuteTime", Context.MODE_PRIVATE);
+            int minute = minuteTime.getInt("MinuteTime", 0);
+            SharedPreferences hourTime = getSharedPreferences("HourTime", Context.MODE_PRIVATE);
+            int hour = hourTime.getInt("HourTime", 8);
+
+            textView2.setText(hour+"時"+minute+"分です");
         }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     @Override
@@ -97,7 +93,8 @@ public class PreferenceActivity extends Activity {
                 editor2.putInt("HourTime", hourOfDay);
                 editor2.apply();
 //                MainActivity main = new MainActivity();
-//                main.addAlarm();
+                addAlarm();
+                textView2.setText(hour+"時"+minute+"分です");
 
 
 //                // 現在の時刻を取得
@@ -109,6 +106,58 @@ public class PreferenceActivity extends Activity {
 
          }
        };
+
+
+    public void addAlarm(){
+        // アラームを設定する
+        mAlarmSender = this.getPendingIntent();
+        //時間設定
+        SharedPreferences minuteTime = getSharedPreferences("MinuteTime", Context.MODE_PRIVATE);
+        int minute = minuteTime.getInt("MinuteTime", 0);
+//        Log.d(TAG,minute+"設定時間minute");
+        SharedPreferences hourTime = getSharedPreferences("HourTime", Context.MODE_PRIVATE);
+        int hour = hourTime.getInt("HourTime_", 8);
+//        Log.d(TAG,hour+"hour");
+
+        // アラーム時間設定
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        // 設定した時刻をカレンダーに設定
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        // 過去だったら明日にする
+//        if(cal.getTimeInMillis() < System.currentTimeMillis()) {
+//            cal.add(Calendar.DAY_OF_YEAR, 1);
+//        }
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+// AlarmManager.RTC_WAKEUPで端末スリープ時に起動させるようにする
+// 1回だけ通知の場合はalarmManager.set()を使う
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+// 一日毎にアラームを呼び出す
+                AlarmManager.INTERVAL_DAY, mAlarmSender);
+
+//        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//    am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), mAlarmSender);
+    }
+//    public void stopAlarm() {
+//        // アラームのキャンセル
+//        Log.d(TAG, "stopAlarm()");
+//        am.cancel(mAlarmSender);
+//        spm.updateToRevival();ｊ
+//    }
+
+    private PendingIntent getPendingIntent() {
+        // アラーム時に起動するアプリケーションを登録
+        Intent intent = new Intent(getApplicationContext(), PushService.class);
+//        transit(PushService.class, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), PendingIntent.FLAG_ONE_SHOT, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return pendingIntent;
+    }
+
+
 }
 
 
