@@ -24,16 +24,18 @@ public class AddTaskActivity2 extends BaseActivity {
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    addTask();
+                addTask();
+                finish();
             }
         });
     }
+
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
     }
 
-    public void addTask(){
+    public void addTask() {
         //追加するタスクのインスタンス作成
         Task task = new Task(getApplicationContext());
 
@@ -51,7 +53,7 @@ public class AddTaskActivity2 extends BaseActivity {
                 task.setImportant_level(-1);
                 break;
         }
-        try {
+        try {//タスクをDBに追加
             task.addTask();
         } catch (Exception e) {
             e.printStackTrace();

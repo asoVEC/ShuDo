@@ -46,8 +46,8 @@ public class Task {
                     task.taskId = c.getInt(0);
                     task.content = c.getString(1);
                     task.important_level = c.getInt(2);
-                    for (int i = 0; i < 10; i++)
-                        taskList.add(task);
+
+                    taskList.add(task);
                 } while (c.moveToNext());
             }
         }
@@ -115,7 +115,7 @@ public class Task {
     }
 
     public void deleteTask() {
-        Log.d(TAG, "deleteTask()がよばれました。taskId :" +taskId+"のタスクを削除します");
+        Log.d(TAG, "deleteTask()がよばれました。taskId :" + taskId + "のタスクを削除します");
         if (taskId == -1) {
 
         } else {
@@ -138,8 +138,8 @@ public class Task {
         }
     }
 
-    public void updateTask(int important_level){
-        Log.d(TAG, "updateTask()がよばれました。taskId :" +taskId+"のタスクを更新します");
+    public void updateTask(int important_level) {
+        Log.d(TAG, "updateTask()がよばれました。taskId :" + taskId + "のタスクを更新します");
         if (taskId == -1) {
 
         } else {
@@ -154,7 +154,7 @@ public class Task {
                 //異常終了
             }
             try {
-                String sql = "update task set important_lv = "+ important_level +" where _id == " + taskId;
+                String sql = "update task set important_lv = " + important_level + " where _id == " + taskId;
                 sdb.execSQL(sql);
             } catch (Exception e) {
                 e.getMessage();
@@ -162,7 +162,8 @@ public class Task {
         }
 
     }
-    public void  increaseImportantLv(){
+
+    public void increaseImportantLv() {
         updateTask(important_level + 1);
     }
 

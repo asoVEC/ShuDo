@@ -37,16 +37,6 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         title.setText(task.getContent());
 
 
-
-
-
-
-
-
-
-
-
-
         return convertView;
     }
 
