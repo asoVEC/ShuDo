@@ -3,7 +3,6 @@ package vegy.aso.ac.jp.shudo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -69,17 +68,17 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         taskAdapter = new TaskAdapter(getApplicationContext(), R.layout.task_layout, taskList);
         GridView gridView = (GridView) findViewById(R.id.gv_taskList);
         gridView.setAdapter(taskAdapter);
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Task task = (Task) parent.getItemAtPosition(position);
-                task.deleteTask();
-                taskAdapter.remove(task);
-                taskAdapter.notifyDataSetChanged();
-                Log.d(TAG, "ロングクリックされたよ");
-                return false;
-            }
-        });
+//        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                Task task = (Task) parent.getItemAtPosition(position);
+//                task.deleteTask();
+//                taskAdapter.remove(task);
+//                taskAdapter.notifyDataSetChanged();
+//                Log.d(TAG, "ロングクリックされたよ");
+//                return false;
+//            }
+//        });
 
         }
 
