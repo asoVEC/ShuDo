@@ -4,26 +4,40 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
 
 import model.Task;
+import model.TaskAdapter;
 
 //    true=今日,flase=明日
 
 public class TaskListActivity extends BaseActivity implements View.OnClickListener{
+    TextView title;
+    Button todayButton;
+    Button addButton;
+    Button tommorowButton;
+    ImageButton preferenceButton;
+    TaskAdapter taskAdapter;
     private String TAG = "TaskListActivity";
     //flg宣言　デフォルトは今日
-    private boolean  flg;
+    private boolean flg;
     private List<Task> taskList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
         flg = true;
+
+        title = (TextView) findViewById(R.id.title_tasklist);
+        todayButton = (Button) findViewById(R.id.bt_today_tasklist);
+        tommorowButton = (Button) findViewById(R.id.bt_tomorrow_tasklist);
+        addButton = (Button) findViewById(R.id.bt_add_tasklist);
+        preferenceButton = (ImageButton) findViewById(R.id.bt_preference_tasklist);
 //        Log.d(TAG, flg + ":CREATE");
     }
     //基本処理
@@ -32,16 +46,12 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         super.onResume();
         //宣言
 //        Log.d(TAG, flg + ":RESUME");
-        TextView title = (TextView) findViewById(R.id.title_tasklist);
-        Button todayButton = (Button) findViewById(R.id.todday_button_tasklist);
-        Button tommorowButton = (Button) findViewById(R.id.tommorow_button_tasklist);
-        Button bt = (Button) findViewById(R.id.button);
-        Button bt2 = (Button) findViewById(R.id.pre);
-        bt2.setOnClickListener(this);
+
         //ボタンクリック処理
         todayButton.setOnClickListener(this);
         tommorowButton.setOnClickListener(this);
-        bt.setOnClickListener(this);
+        addButton.setOnClickListener(this);
+        preferenceButton.setOnClickListener(this);
         //タスクの取得
             if (flg == false) {
                 title.setText("明日以降の予定一覧");
@@ -54,42 +64,44 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
                 taskList = Task.getTodayTask(getApplicationContext());
                 Log.d(TAG, "今日");
             }
-//
-            for (int i = 0; i < taskList.size(); i++) {
-                String task = String.valueOf(taskList.get(i).getContent() + taskList.get(i).getImportant_level());
-                Log.d(TAG, task);
-            }
-//        Toast.makeText(this, taskList.size(), Toast.LENGTH_LONG).show();
             //表示する
-//            taskDisplay(taskList);
+        taskAdapter = new TaskAdapter(getApplicationContext(), R.layout.task_layout, taskList);
+        GridView gridView = (GridView) findViewById(R.id.gv_taskList);
+        gridView.setAdapter(taskAdapter);
+//        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                Task task = (Task) parent.getItemAtPosition(position);
+//                task.deleteTask();
+//                taskAdapter.remove(task);
+//                taskAdapter.notifyDataSetChanged();
+//                Log.d(TAG, "ロングクリックされたよ");
+//                return false;
+//            }
+//        });
+
         }
 
-    public void taskDisplay(List<Task> taskList) {
 
-//        for (int i = 0; i < taskList.size(); i++) {
-
-//        }
-
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.todday_button_tasklist:
+            case R.id.bt_today_tasklist:
                 flg = true;
                 onResume();
                 Log.d(TAG, flg + ":TODDAY CLICK");
                 break;
-            case R.id.tommorow_button_tasklist:
+            case R.id.bt_tomorrow_tasklist:
                 flg = false;
 
                 Log.d(TAG, flg + ":TOMMOROW CLICK");
                 onResume();
                 break;
-            case R.id. button :
+            case R.id.bt_add_tasklist:
                 transit(AddTaskActivity.class, 0);
                 break;
-            case R.id. pre :
+            case R.id.bt_preference_tasklist:
                 transit(PreferenceActivity.class, 0);
                 break;
         }

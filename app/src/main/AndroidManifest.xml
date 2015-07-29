@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vegy.aso.ac.jp.shudo" >
-
+    
     <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".TaskListActivity2"
-            android:label="@string/title_activity_task_list" />
+            android:label="@string/title_activity_task_list"></activity>
         <activity
             android:name=".TutorialActivity"
             android:label="@string/title_activity_tutorial" >
@@ -43,18 +43,13 @@
             android:name=".PreferenceActivity"
             android:label="@string/title_activity_management_task" >
         </activity>
-
-        <receiver android:name="model.Receiver" >
+        <receiver android:name="model.Receiver">
             <intent-filter>
-                <action android:name="MyAlarmAction" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <uses-permission
+                    android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-
-        <service
-            android:name="model.PushService"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
     </application>
 
 </manifest>

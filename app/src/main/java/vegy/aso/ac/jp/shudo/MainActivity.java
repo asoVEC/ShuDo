@@ -1,34 +1,14 @@
 package vegy.aso.ac.jp.shudo;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import model.PushService;
-import model.Receiver;
 import model.Task;
 
 public class MainActivity extends BaseActivity {
     private String TAG = "MainActivity";
-    Context c;
-
-
-//    public MainActivity(Context c){
-//        // 初期化
-//        this.c = c;
-//        am = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
-//        Log.v(TAG,"初期化完了");
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +41,21 @@ public class MainActivity extends BaseActivity {
         //とりあえずコメントで残しとく　使わない予定
 //        IntentFilter filter = new IntentFilter(KitchenTimerService.ACTION);
 //        registerReceiver(receiver, filter);
+
+
+
         //初回起動かチェック
         if (checkInitState() == 1) {
-            transit(TaskListActivity.class, 0);
+            transit(TaskListActivity.class, 1);
             //    transit(TaskListActivity.class, 0);
         } else if (checkInitState() == 0) {
              updateInitState();
-            transit(TaskListActivity.class, 0);
+            transit(TaskListActivity.class, 1);
             //   transit(AddTaskActivity.class, 0);
 //            transit(TaskListActivity.class, 0);
         }
 
-
-
     }
-
 
     //初回起動時かチェックする 戻:int 0=初回、1=初回ではない
     private int checkInitState() {
