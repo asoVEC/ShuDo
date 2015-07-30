@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-import model.Task;
-
 public class MainActivity extends BaseActivity {
     private String TAG = "MainActivity";
 
@@ -27,14 +25,14 @@ public class MainActivity extends BaseActivity {
 
 
         //タスク追加テスト
-        Task task = new Task(getApplicationContext());
-        task.setContent("きみやと焼肉とステーキとラーメンとチャーハンと餃子とカレーライスとパフェを食べる");
-        task.setImportant_level(0);
-        try {
-            task.addTask();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        Task task = new Task(getApplicationContext());
+//        task.setContent("きみやと焼肉とステーキとラーメンとチャーハンと餃子とカレーライスとパフェを食べる");
+//        task.setImportant_level(0);
+//        try {
+//            task.addTask();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         //サービスの起動
 //        startService(new Intent(this, PushService.class));

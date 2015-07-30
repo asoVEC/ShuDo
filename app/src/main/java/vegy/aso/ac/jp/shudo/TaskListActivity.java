@@ -3,10 +3,12 @@ package vegy.aso.ac.jp.shudo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import model.TaskAdapter;
 
 //    true=今日,flase=明日
 
-public class TaskListActivity extends BaseActivity implements View.OnClickListener{
+public class TaskListActivity extends BaseActivity implements View.OnClickListener {
     TextView title;
     Button todayButton;
     Button addButton;
@@ -40,6 +42,7 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         preferenceButton = (ImageButton) findViewById(R.id.bt_preference_tasklist);
 //        Log.d(TAG, flg + ":CREATE");
     }
+
     //基本処理
     @Override
     protected void onResume() {
@@ -53,40 +56,49 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         addButton.setOnClickListener(this);
         preferenceButton.setOnClickListener(this);
         //タスクの取得
-            if (flg == false) {
-                title.setText("明日以降の予定一覧");
-                taskList = Task.getTommorowTask(getApplicationContext());
-                Log.d(TAG, "明日");
-            }
+        if (flg == false) {
+            title.setText("明日以降の予定一覧");
+            taskList = Task.getTommorowTask(getApplicationContext());
+            Log.d(TAG, "明日");
+        }
 
-            if (flg == true) {
-                title.setText("今日の予定一覧");
-                taskList = Task.getTodayTask(getApplicationContext());
-                Log.d(TAG, "今日");
-            }
-            //表示する
+        if (flg == true) {
+            title.setText("今日の予定一覧");
+            taskList = Task.getTodayTask(getApplicationContext());
+            Log.d(TAG, "今日");
+        }
+        //表示する
         taskAdapter = new TaskAdapter(getApplicationContext(), R.layout.task_layout, taskList);
         GridView gridView = (GridView) findViewById(R.id.gv_taskList);
         gridView.setAdapter(taskAdapter);
-//        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                Task task = (Task) parent.getItemAtPosition(position);
-//                task.deleteTask();
-//                taskAdapter.remove(task);
-//                taskAdapter.notifyDataSetChanged();
-//                Log.d(TAG, "ロングクリックされたよ");
-//                return false;
-//            }
-//        });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Task task = (Task) parent.getItemAtPosition(position);
+                task.deleteTask();
+                taskAdapter.remove(task);
+                taskAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "タスクを削除しました", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "後回しにしました", Toast.LENGTH_LONG).show();
+                Task task = (Task) parent.getItemAtPosition(position);
+                task.updateTask(-1);
+                taskAdapter.remove(task);
+                taskAdapter.notifyDataSetChanged();
+            }
+        });
 
-        }
-
+    }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.bt_today_tasklist:
                 flg = true;
                 onResume();
