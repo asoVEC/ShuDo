@@ -113,8 +113,8 @@ public class PreferenceActivity extends Activity {
         int minute = minuteTime.getInt("MinuteTime", 0);
 //        Log.d(TAG,minute+"設定時間minute");
         SharedPreferences hourTime = getSharedPreferences("HourTime", Context.MODE_PRIVATE);
-        int hour = hourTime.getInt("HourTime_", 8);
-//        Log.d(TAG,hour+"hour");
+        int hour = hourTime.getInt("HourTime", 8);
+        Log.d(TAG,hour+"hour");
 
         // アラーム時間設定
         Calendar cal = Calendar.getInstance();
