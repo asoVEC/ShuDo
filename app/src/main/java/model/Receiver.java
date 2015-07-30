@@ -67,7 +67,7 @@ public class Receiver extends BroadcastReceiver {
         String display = pushList.get(0).toString();
 
         if (pushList.size() > 1){
-            display += "残り"+String.valueOf(pushList.size()-1)+"個のタスクが残っています";
+            display +="他"+String.valueOf(pushList.size()-1)+"個のタスクが残っています";
         }
 
         Intent bootIntent =
@@ -78,7 +78,8 @@ public class Receiver extends BroadcastReceiver {
                 taskContext);
         builder.setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setTicker("ShuDo")
-                .setContentTitle(display)
+                .setContentTitle("ShuDo放置タスクのお知らせ")
+                .setContentText(display)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_SOUND)
