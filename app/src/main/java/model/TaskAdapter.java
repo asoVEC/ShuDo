@@ -36,13 +36,13 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         int husen;
         Task task = (Task) getItem(position);
         switch (task.getImportant_level()){
-            case 2:
+            case 1:
                 husen = R.drawable.husen2;
                 break;
-            case 3:
+            case 2:
                 husen = R.drawable.husen3;
                 break;
-            case 4:
+            case 3:
                 husen = R.drawable.husen4;
                 break;
             default:
@@ -51,7 +51,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
         taskHolder.setBackgroundResource(husen);
         TextView title = (TextView) convertView.findViewById(R.id.task_content);
-        title.setText(task.getContent());
+//        title.setText(task.getContent());
+        title.setText(String.valueOf(task.getImportant_level()));
 
 
         return convertView;
