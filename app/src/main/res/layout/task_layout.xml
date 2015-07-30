@@ -3,7 +3,7 @@
     android:id="@+id/task_holder"
     android:layout_width="120dp"
     android:layout_height="60dp"
-    android:background="@drawable/husen2"
+    android:background="@drawable/husen"
     android:orientation="vertical">
 
     <TextView

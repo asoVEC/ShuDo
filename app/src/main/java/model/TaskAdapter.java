@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -31,8 +32,24 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.task_layout, null);
         }
-
+        LinearLayout taskHolder = (LinearLayout)convertView.findViewById(R.id.task_holder);
+        int husen;
         Task task = (Task) getItem(position);
+        switch (task.getImportant_level()){
+            case 2:
+                husen = R.drawable.husen2;
+                break;
+            case 3:
+                husen = R.drawable.husen3;
+                break;
+            case 4:
+                husen = R.drawable.husen4;
+                break;
+            default:
+                husen = R.drawable.husen;
+                break;
+        }
+        taskHolder.setBackgroundResource(husen);
         TextView title = (TextView) convertView.findViewById(R.id.task_content);
         title.setText(task.getContent());
 
