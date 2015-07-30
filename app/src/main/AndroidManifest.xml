@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vegy.aso.ac.jp.shudo" >
-    
+
     <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -24,9 +24,6 @@
             android:name=".TaskListActivity"
             android:label="@string/title_activity_task_list" >
         </activity>
-        <activity
-            android:name=".TaskListActivity2"
-            android:label="@string/title_activity_task_list"></activity>
         <activity
             android:name=".TutorialActivity"
             android:label="@string/title_activity_tutorial" >
