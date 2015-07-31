@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".TaskListActivity"
-            android:label="@string/title_activity_task_list" >
+            android:label="タスクリスト">
         </activity>
         <activity
             android:name=".TutorialActivity"
@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".AddTaskActivity"
-            android:label="@string/title_activity_management_task" >
+            android:label="タスク追加">
         </activity>
         <activity
             android:name=".AddTaskActivity2"
@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name=".PreferenceActivity"
-            android:label="@string/title_activity_management_task" >
+            android:label="設定">
         </activity>
         <receiver android:name="model.Receiver" >
             <intent-filter>

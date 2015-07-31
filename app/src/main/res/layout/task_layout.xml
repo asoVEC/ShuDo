@@ -13,5 +13,6 @@
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
         android:text="kimiya"
-        android:textColor="#333" />
+        android:textColor="#333"
+        android:textSize="27sp" />
 </LinearLayout>

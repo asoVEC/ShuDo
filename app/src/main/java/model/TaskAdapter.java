@@ -33,26 +33,22 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             convertView = mLayoutInflater.inflate(R.layout.task_layout, null);
         }
         LinearLayout taskHolder = (LinearLayout)convertView.findViewById(R.id.task_holder);
-        int husen;
+        int husen = 0;
         Task task = (Task) getItem(position);
-        switch (task.getImportant_level()){
-            case 1:
-                husen = R.drawable.husen2;
-                break;
-            case 2:
-                husen = R.drawable.husen3;
-                break;
-            case 3:
-                husen = R.drawable.husen4;
-                break;
-            default:
-                husen = R.drawable.husen;
-                break;
+        int lv = task.getImportant_level();
+        if (lv <= 0) {
+            husen = R.drawable.husen;
+        } else if (lv == 1) {
+            husen = R.drawable.husen2;
+        } else if (lv == 2) {
+            husen = R.drawable.husen3;
+        } else if (lv >= 3) {
+            husen = R.drawable.husen4;
         }
         taskHolder.setBackgroundResource(husen);
         TextView title = (TextView) convertView.findViewById(R.id.task_content);
-//        title.setText(task.getContent());
-        title.setText(String.valueOf(task.getImportant_level()));
+        title.setText(task.getContent());
+//        title.setText(String.valueOf(task.getImportant_level()));
 
 
         return convertView;

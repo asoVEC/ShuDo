@@ -11,7 +11,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
 //        List<Task> allTaskList = Task.getAllTask(getApplicationContext());
 //        for (int i = 0; i < allTaskList.size(); i++) {
 //            String content = String.valueOf(allTaskList.get(i).getTaskId() + allTaskList.get(i).getContent() + allTaskList.get(i).getImportant_level());
@@ -26,8 +26,8 @@ public class MainActivity extends BaseActivity {
 
         //タスク追加テスト
 //        Task task = new Task(getApplicationContext());
-//        task.setContent("きみやと焼肉とステーキとラーメンとチャーハンと餃子とカレーライスとパフェを食べる");
-//        task.setImportant_level(0);
+//        task.setContent("ネコの散歩");
+//        task.setImportant_level(3);
 //        try {
 //            task.addTask();
 //        } catch (Exception e) {
