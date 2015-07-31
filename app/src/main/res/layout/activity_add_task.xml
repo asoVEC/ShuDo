@@ -18,10 +18,10 @@
         android:paddingTop="45dp">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/top_activity_addtask" />
+            android:text="@string/top_activity_addtask"
+            />
 
         <EditText
             android:id="@+id/et_todo"
@@ -30,7 +30,6 @@
             android:hint="TODO名"/>
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/when_activity_addtask" />

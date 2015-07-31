@@ -11,6 +11,8 @@ import model.Task;
 
 /**
  * Created by Aki on 15/06/14.
+ * ますやまがつくったAddTaskActivityを読解できなかったので新たに作成
+ * 現在使用していない(๑°⌓°๑)
  */
 public class AddTaskActivity2 extends BaseActivity {
     private static final String TAG = AddTaskActivity2.class.getSimpleName();
