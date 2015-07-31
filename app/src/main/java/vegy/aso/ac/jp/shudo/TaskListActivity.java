@@ -1,5 +1,6 @@
 package vegy.aso.ac.jp.shudo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,17 @@ public class TaskListActivity extends BaseActivity implements View.OnClickListen
         tommorowButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
         preferenceButton.setOnClickListener(this);
+        preferenceButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RelativeLayout taskList = (RelativeLayout) findViewById(R.id.task_list);
+                taskList.setBackgroundColor(Color.rgb(160, 30, 220));
+                TextView titleString = (TextView) findViewById(R.id.title_tasklist);
+                title.setTextColor(Color.parseColor("#ffffffff"));
+
+                return true;
+            }
+        });
         //タスクの取得
         if (flg == false) {
             title.setText("明日以降の予定一覧");
